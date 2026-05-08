@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--color-warm-paper);
+  --color-foreground: var(--color-warm-ink);
+  --color-accent: var(--color-accent-slate);
+  --color-muted: var(--color-stone-muted);
+  --color-border: var(--color-stone-border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --color-warm-paper: #faf9f7;
+  --color-warm-ink: #1c1917;
+  --color-accent-slate: #e85d3a;
+  --color-accent-slate-hover: #d14a28;
+  --color-stone-muted: #78716c;
+  --color-stone-border: #e7e5e4;
+  --color-stone-surface: #f5f4f1;
+}
+
+.dark {
+  --color-warm-paper: #141210;
+  --color-warm-ink: #eeedeb;
+  --color-accent-slate: #f0725a;
+  --color-accent-slate-hover: #f58b77;
+  --color-stone-muted: #a8a29e;
+  --color-stone-border: #292524;
+  --color-stone-surface: #1c1917;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 999;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-stone-border) transparent;
+}
+
+body {
+  background: var(--color-warm-paper);
+  color: var(--color-warm-ink);
+  font-feature-settings: "ss01", "ss03", "cv02";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-accent-slate);
+  color: #faf9f7;
+}
+
+.page-reveal-mask {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0 0 0 100vmax var(--color-warm-ink);
+}
+
+.page-reveal-mask[data-reveal="covered"] {
+  width: 0px;
+  height: 0px;
+}
+
+.page-reveal-mask[data-reveal="out"] {
+  width: 0px;
+  height: 0px;
+  animation: mask-out 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes mask-out {
+  from {
+    width: 0px;
+    height: 0px;
+  }
+  to {
+    width: 300vmax;
+    height: 300vmax;
+  }
+}
