@@ -19,6 +19,11 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -102,7 +107,7 @@ export function Navbar() {
       </header>
 
       {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-warm-paper flex flex-col items-center justify-center gap-8">
+        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 animate-fade-in">
           {links.map((link) => {
             const isActive = active === link.id;
             return (
@@ -110,7 +115,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollTo(e, link.href)}
-                className={`text-2xl font-medium tracking-tight transition-colors pressable ${
+                className={`text-2xl font-medium tracking-tight transition-all duration-300 pressable ${
                   isActive ? "text-accent" : "text-foreground"
                 }`}
               >
