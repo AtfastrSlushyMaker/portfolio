@@ -12,7 +12,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="min-h-[100dvh] flex flex-col justify-center px-6 pt-24 pb-16 max-w-7xl mx-auto w-full relative">
+    <section className="min-h-[100dvh] flex flex-col justify-center px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16 max-w-7xl mx-auto w-full relative">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
           className="absolute rounded-full opacity-[0.02]"
@@ -30,7 +30,7 @@ export function Hero() {
         <p className="text-sm text-muted mb-6">
           Cloud Engineering Student &mdash; ESPRIT ARCTIC
         </p>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl tracking-tighter leading-[0.95] font-medium">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-[0.92] font-medium">
           <SpotlightText className="text-foreground" radius={320}>
             Malek
           </SpotlightText>
@@ -45,7 +45,7 @@ export function Hero() {
           geospatial platforms, enterprise applications, and
           AI-integrated systems. Based in Tunisia.
         </p>
-        <div className="mt-10 flex items-center gap-6">
+        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
           <a
             href="#work"
             onClick={(e) => scrollTo(e, "work")}

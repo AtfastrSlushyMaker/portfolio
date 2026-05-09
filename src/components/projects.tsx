@@ -154,7 +154,7 @@ function ProjectCard({
 
 export function Projects() {
   return (
-    <section id="work" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
+    <section id="work" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
       <SectionReveal>
         <div className="mb-16 md:mb-24">
           <p className="text-xs text-muted/60 tracking-wide mb-4">

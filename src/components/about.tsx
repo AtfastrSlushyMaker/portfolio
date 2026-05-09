@@ -3,7 +3,7 @@ import { SectionReveal } from "./section-reveal";
 
 export function About() {
   return (
-    <section id="about" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
+    <section id="about" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
           <p className="text-xs text-muted/60 tracking-wide mb-4">

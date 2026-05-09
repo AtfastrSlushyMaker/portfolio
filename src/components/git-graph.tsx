@@ -128,7 +128,7 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
     : 0;
 
   return (
-    <div className="pb-1 flex justify-center">
+    <div className="overflow-x-auto max-w-full pb-1 flex justify-center md:justify-start">
       <div>
         <div className="flex" style={{ paddingLeft: 32, gap: CELL_GAP }}>
           <div className="flex" style={{ gap: CELL_GAP }}>
@@ -245,7 +245,7 @@ export function GitGraph() {
 
   if (loading) {
     return (
-      <section id="activity" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
+      <section id="activity" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
           <div>
             <p className="text-xs text-muted/60 tracking-wide mb-4">
@@ -267,7 +267,7 @@ export function GitGraph() {
   if (error) return null;
 
   return (
-    <section id="activity" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
+    <section id="activity" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
           <p className="text-xs text-muted/60 tracking-wide mb-4">

@@ -4,7 +4,7 @@ import { SpotlightText } from "./spotlight-text";
 
 export function Contact() {
   return (
-    <section id="contact" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
+    <section id="contact" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
       <div className="border-t border-stone-border/60 pt-16 md:pt-24">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
           <div>
