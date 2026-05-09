@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
@@ -75,6 +76,7 @@ export default function RootLayout({
           <BackToTop />
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId="G-QPE243MR7K" />
     </html>
   );
 }
