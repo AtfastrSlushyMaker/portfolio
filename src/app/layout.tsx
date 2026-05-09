@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://malekbsaissa.vercel.app"),
   title: {
-    default: "Malek Bsaissa",
+    default: "Malek Bsaissa | Software Engineer",
     template: "%s | Malek Bsaissa",
   },
   description:
