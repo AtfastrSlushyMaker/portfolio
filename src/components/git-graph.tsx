@@ -257,7 +257,7 @@ export function GitGraph() {
             <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-8">
               GitHub contributions.
             </h2>
-            <div className="h-32 rounded-lg bg-stone-surface animate-pulse" />
+            <div className="h-32 rounded-lg shimmer-bg" />
           </div>
         </div>
       </section>

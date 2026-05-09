@@ -49,24 +49,24 @@ export function Hero() {
           <a
             href="#work"
             onClick={(e) => scrollTo(e, "work")}
-            className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:opacity-80 transition-opacity group"
+            className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:opacity-80 transition-opacity group pressable"
           >
             View selected work
             <ArrowRight
               weight="bold"
-              className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+              className="w-4 h-4 icon-spring"
             />
           </a>
           <a
             href="/cv"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors group"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors group pressable"
           >
             Download CV
             <ArrowRight
               weight="bold"
-              className="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+              className="w-4 h-4 icon-spring"
             />
           </a>
         </div>

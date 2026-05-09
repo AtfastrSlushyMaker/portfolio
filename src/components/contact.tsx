@@ -37,7 +37,7 @@ export function Contact() {
                 href="/cv"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable"
               >
                 <FileText weight="duotone" className="w-4 h-4" />
                 Download CV
@@ -46,7 +46,7 @@ export function Contact() {
                 href="https://github.com/AtfastrSlushyMaker"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable"
               >
                 <GithubLogo weight="duotone" className="w-4 h-4" />
                 GitHub
@@ -55,7 +55,7 @@ export function Contact() {
                 href="https://www.linkedin.com/in/malek-bsaissa-8861b229b/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable"
               >
                 <LinkedinLogo weight="duotone" className="w-4 h-4" />
                 LinkedIn

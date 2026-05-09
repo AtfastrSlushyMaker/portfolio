@@ -58,7 +58,7 @@ export function Navbar() {
       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-3 text-sm font-medium tracking-tight text-foreground/80 hover:text-foreground transition-colors"
+          className="flex items-center gap-3 text-sm font-medium tracking-tight text-foreground/80 hover:text-foreground transition-colors pressable"
         >
           <img src="/logo.png" alt="MB" className="w-14 h-14 shrink-0 object-contain" />
           <span className="hidden sm:inline">Malek Bsaissa</span>
@@ -71,7 +71,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollTo(e, link.href)}
-                className={`relative text-sm py-1 transition-colors group ${
+                className={`relative text-sm py-1 transition-colors group pressable ${
                   isActive ? "text-foreground" : "text-muted hover:text-foreground"
                 }`}
               >

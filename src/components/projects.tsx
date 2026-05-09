@@ -75,14 +75,14 @@ function ProjectCard({
 }) {
   return (
     <div
-      className="group border-t border-stone-border/60 py-12 md:py-16 first:border-t-0"
+      className="border-t border-stone-border/60 py-12 md:py-16 first:border-t-0"
     >
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
           <p className="text-xs text-muted/60 mb-3 tracking-wide">
             {String(index + 1).padStart(2, "0")}
           </p>
-          <h3 className="text-2xl font-medium tracking-tight group-hover:text-accent transition-colors duration-300">
+          <h3 className="text-2xl font-medium tracking-tight text-foreground hover:text-accent transition-colors duration-300">
             <SpotlightText className="text-foreground" radius={320}>
               {project.title}
             </SpotlightText>
@@ -105,7 +105,7 @@ function ProjectCard({
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs px-2.5 py-1 rounded-full bg-stone-surface/80 text-muted border border-stone-border/40 group-hover:border-stone-border/60 transition-colors"
+                className="text-xs px-2.5 py-1 rounded-full bg-stone-surface/80 text-muted border border-stone-border/40 hover:border-stone-border/60 tag-hover"
               >
                 {tag}
               </span>
@@ -116,22 +116,22 @@ function ProjectCard({
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2 transition-all duration-300"
+              className="inline-flex items-center gap-1.5 text-sm text-accent font-medium group"
             >
               {"linkLabel" in project && project.linkLabel
                 ? project.linkLabel
                 : "Source"}
-              <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
+              <ArrowUpRight weight="bold" className="w-3.5 h-3.5 icon-spring" />
             </a>
             {"live" in project && project.live && (
               <a
                 href={project.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2 transition-all duration-300"
+                className="inline-flex items-center gap-1.5 text-sm text-accent font-medium group"
               >
                 Live Demo
-                <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
+                <ArrowUpRight weight="bold" className="w-3.5 h-3.5 icon-spring" />
               </a>
             )}
             {"extraLink" in project && project.extraLink && (
@@ -139,10 +139,10 @@ function ProjectCard({
                 href={project.extraLink.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2 transition-all duration-300"
+                className="inline-flex items-center gap-1.5 text-sm text-accent font-medium group"
               >
                 {project.extraLink.label}
-                <ArrowUpRight weight="bold" className="w-3.5 h-3.5" />
+                <ArrowUpRight weight="bold" className="w-3.5 h-3.5 icon-spring" />
               </a>
             )}
           </div>
