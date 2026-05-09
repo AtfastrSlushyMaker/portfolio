@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Briefcase, ClockCounterClockwise, GraduationCap } from "@phosphor-icons/react";
 import { SectionReveal } from "./section-reveal";
+import { SpotlightText } from "./spotlight-text";
 
 const timelineItems = [
   {
@@ -78,13 +80,19 @@ function TimelineEntry({
     >
       <div className="absolute left-0 top-0 bottom-0 flex flex-col items-center">
         <div
-          className={`w-3 h-3 rounded-full border-2 shrink-0 mt-1.5 transition-all duration-500 ${
+          className={`w-5 h-5 rounded-full border-2 shrink-0 mt-1 flex items-center justify-center transition-all duration-500 ${
             visible
               ? "bg-accent border-accent scale-100"
               : "bg-transparent border-stone-border scale-50"
           }`}
           style={{ transitionDelay: `${index * 150 + 300}ms` }}
-        />
+        >
+          {item.isEducation ? (
+            <GraduationCap weight="duotone" className={`w-3 h-3 transition-colors duration-500 ${visible ? "text-[var(--color-warm-paper)]" : "text-transparent"}`} />
+          ) : (
+            <Briefcase weight="duotone" className={`w-3 h-3 transition-colors duration-500 ${visible ? "text-[var(--color-warm-paper)]" : "text-transparent"}`} />
+          )}
+        </div>
         {index < timelineItems.length - 1 && (
           <div
             className="w-px flex-1 bg-stone-border/60 mt-2 transition-all duration-700 origin-top"
@@ -130,12 +138,23 @@ export function Timeline() {
     <section id="experience" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
-          <p className="text-xs text-muted/60 tracking-wide mb-4">Experience</p>
+          <p className="text-xs text-muted/60 tracking-wide mb-4">
+            <ClockCounterClockwise weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+            Experience
+          </p>
         </div>
         <div>
           <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-16">
             <SectionReveal>
-              <span>Where I have<br />been so far.</span>
+              <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-16">
+                <SpotlightText className="text-foreground" radius={280}>
+                  Where I have
+                </SpotlightText>
+                <br />
+                <SpotlightText className="text-foreground" radius={280}>
+                  been so far.
+                </SpotlightText>
+              </h2>
             </SectionReveal>
           </h2>
           <div className="relative">

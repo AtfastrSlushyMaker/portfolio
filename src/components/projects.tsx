@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { ArrowUpRight, Briefcase } from "@phosphor-icons/react";
 import { SectionReveal } from "./section-reveal";
+import { SpotlightText } from "./spotlight-text";
 
 const projects = [
   {
@@ -81,8 +82,10 @@ function ProjectCard({
           <p className="text-xs text-muted/60 mb-3 tracking-wide">
             {String(index + 1).padStart(2, "0")}
           </p>
-          <h3 className="text-2xl font-medium tracking-tight text-foreground group-hover:text-accent transition-colors duration-300">
-            {project.title}
+          <h3 className="text-2xl font-medium tracking-tight group-hover:text-accent transition-colors duration-300">
+            <SpotlightText className="text-foreground" radius={320}>
+              {project.title}
+            </SpotlightText>
             {"subtitle" in project && project.subtitle && (
               <span className="text-sm text-muted/50 font-normal ml-2">
                 ({project.subtitle})
@@ -154,11 +157,18 @@ export function Projects() {
     <section id="work" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
       <SectionReveal>
         <div className="mb-16 md:mb-24">
-          <p className="text-xs text-muted/60 tracking-wide mb-4">Selected Work</p>
+          <p className="text-xs text-muted/60 tracking-wide mb-4">
+            <Briefcase weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+            Selected Work
+          </p>
           <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground">
-            Building systems
+            <SpotlightText className="text-foreground" radius={280}>
+              Building systems
+            </SpotlightText>
             <br />
-            from the ground up.
+            <SpotlightText className="text-foreground" radius={280}>
+              from the ground up.
+            </SpotlightText>
           </h2>
         </div>
       </SectionReveal>

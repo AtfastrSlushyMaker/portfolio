@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { ChartBar } from "@phosphor-icons/react";
 import { SectionReveal } from "./section-reveal";
+import { SpotlightText } from "./spotlight-text";
 
 interface Day {
   date: string;
@@ -246,7 +248,10 @@ export function GitGraph() {
       <section id="activity" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
           <div>
-            <p className="text-xs text-muted/60 tracking-wide mb-4">Activity</p>
+            <p className="text-xs text-muted/60 tracking-wide mb-4">
+              <ChartBar weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+              Activity
+            </p>
           </div>
           <div>
             <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-8">
@@ -265,12 +270,17 @@ export function GitGraph() {
     <section id="activity" className="px-6 py-32 md:py-48 max-w-7xl mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
-          <p className="text-xs text-muted/60 tracking-wide mb-4">Activity</p>
+          <p className="text-xs text-muted/60 tracking-wide mb-4">
+              <ChartBar weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+              Activity
+            </p>
         </div>
           <div>
             <SectionReveal>
               <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-1">
-                GitHub contributions.
+                <SpotlightText className="text-foreground" radius={280}>
+                  GitHub contributions.
+                </SpotlightText>
               </h2>
               <p className="text-sm text-muted mb-8 font-mono tabular-nums">
                 {years.reduce((s, y) => s + y.total, 0).toLocaleString()} contributions total

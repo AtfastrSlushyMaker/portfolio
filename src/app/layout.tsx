@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { PageReveal } from "@/components/page-reveal";
 import { CursorGlow } from "@/components/cursor-glow";
+import { BackToTop } from "@/components/back-to-top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,12 +18,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://malekbsaissa.vercel.app"),
   title: {
     default: "Malek Bsaissa",
     template: "%s | Malek Bsaissa",
   },
   description:
     "Cloud engineering student at ESPRIT — building full-stack applications, transportation platforms, and cloud-native systems from Tunisia.",
+  icons: {
+    icon: [
+      { url: "/favicon-32.png?v=3", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png?v=3", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-icon.png?v=3",
+  },
+  openGraph: {
+    title: "Malek Bsaissa",
+    description:
+      "Cloud engineering student at ESPRIT — building full-stack applications, transportation platforms, and cloud-native systems from Tunisia.",
+    url: "https://malekbsaissa.vercel.app",
+    siteName: "Malek Bsaissa",
+    images: [{ url: "/logo.png", width: 512, height: 512 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Malek Bsaissa",
+    description:
+      "Cloud engineering student at ESPRIT — building full-stack applications, transportation platforms, and cloud-native systems from Tunisia.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({
@@ -36,12 +61,18 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=3" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=3" />
+      </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <ThemeProvider>
           <PageReveal />
           <CursorGlow />
           <Navbar />
           <main className="flex-1">{children}</main>
+          <BackToTop />
         </ThemeProvider>
       </body>
     </html>

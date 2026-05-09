@@ -42,10 +42,10 @@ export function CursorGlow() {
         ref={glowRef}
         className="absolute top-0 left-0 will-change-transform rounded-full"
         style={{
-          width: 500,
-          height: 500,
+          width: 640,
+          height: 640,
           background: "radial-gradient(circle, rgba(232,93,58,0.09) 0%, rgba(232,93,58,0.03) 30%, transparent 70%)",
-          filter: "blur(50px)",
+          filter: "blur(60px)",
         }}
       />
     </div>
