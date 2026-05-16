@@ -174,6 +174,7 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
                   <div
                     key={di}
                     title={day.date ? `${day.date}: ${day.count} contributions` : ""}
+                    className="cursor-pointer"
                     style={{
                       width: CELL_SIZE,
                       height: CELL_SIZE,
@@ -220,11 +221,10 @@ export function GitGraph() {
   useEffect(() => {
     async function fetchContributions() {
       try {
-        const res = await fetch(
-          "https://github-contributions-api.deno.dev/AtfastrSlushyMaker.json"
-        );
+        const res = await fetch("/api/contributions");
         if (!res.ok) throw new Error("Failed");
         const data = await res.json();
+        if (data.error) throw new Error(data.error);
         const apiWeeks: ApiDay[][] = data.contributions ?? [];
         setYears(groupByYear(apiWeeks));
       } catch {
@@ -248,8 +248,8 @@ export function GitGraph() {
       <section id="activity" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
           <div>
-            <p className="text-xs text-muted/60 tracking-wide mb-4">
-              <ChartBar weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+            <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
+              <ChartBar weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
               Activity
             </p>
           </div>
@@ -270,8 +270,8 @@ export function GitGraph() {
     <section id="activity" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
-          <p className="text-xs text-muted/60 tracking-wide mb-4">
-              <ChartBar weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+          <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
+              <ChartBar weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
               Activity
             </p>
         </div>
@@ -282,8 +282,18 @@ export function GitGraph() {
                   GitHub contributions.
                 </SpotlightText>
               </h2>
-              <p className="text-sm text-muted mb-8 font-mono tabular-nums">
-                {years.reduce((s, y) => s + y.total, 0).toLocaleString()} contributions total
+              <p className="text-sm text-muted mb-2 font-mono tabular-nums">
+                {years.reduce((s, y) => s + y.total, 0).toLocaleString()} contributions across {years.length} years
+              </p>
+              <p className="text-xs text-muted/40 mb-8">
+                <a
+                  href="https://github.com/AtfastrSlushyMaker"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-muted transition-colors cursor-pointer"
+                >
+                  View profile on GitHub →
+                </a>
               </p>
             </SectionReveal>
 
@@ -292,7 +302,7 @@ export function GitGraph() {
               <button
                 key={y.year}
                 onClick={() => setSelectedYear(y.year)}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all font-mono ${
+                className={`text-xs px-3 py-1.5 rounded-full border transition-all font-mono cursor-pointer ${
                   displayedYear === y.year
                     ? "border-accent bg-accent/10 text-accent"
                     : "border-stone-border/50 text-muted hover:border-stone-muted"

@@ -8,8 +8,8 @@ export function Contact() {
       <div className="border-t border-stone-border/60 pt-16 md:pt-24">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
           <div>
-            <p className="text-xs text-muted/60 tracking-wide mb-4">
-              <Envelope weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+            <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
+              <Envelope weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
               Contact
             </p>
           </div>
@@ -27,7 +27,7 @@ export function Contact() {
             </SectionReveal>
             <a
               href="mailto:dev.malekbsaissa@gmail.com"
-              className="inline-flex items-center gap-2 text-lg text-accent hover:opacity-80 transition-opacity group mb-8"
+              className="inline-flex items-center gap-2 text-lg text-accent hover:opacity-80 transition-opacity group mb-8 cursor-pointer"
             >
               dev.malekbsaissa@gmail.com
               <ArrowUpRight weight="bold" className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -37,7 +37,7 @@ export function Contact() {
                 href="/cv"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable cursor-pointer"
               >
                 <FileText weight="duotone" className="w-4 h-4" />
                 Download CV
@@ -46,7 +46,7 @@ export function Contact() {
                 href="https://github.com/AtfastrSlushyMaker"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable cursor-pointer"
               >
                 <GithubLogo weight="duotone" className="w-4 h-4" />
                 GitHub
@@ -55,7 +55,7 @@ export function Contact() {
                 href="https://www.linkedin.com/in/malek-bsaissa-8861b229b/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable"
+                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable cursor-pointer"
               >
                 <LinkedinLogo weight="duotone" className="w-4 h-4" />
                 LinkedIn

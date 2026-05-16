@@ -56,14 +56,14 @@ export function Navbar() {
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
           scrolled || menuOpen
-            ? "bg-warm-paper/80 backdrop-blur-md border-b border-stone-border/50"
+            ? "bg-warm-paper/80 backdrop-blur-md border-b border-stone-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
             : "bg-transparent"
         }`}
       >
         <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-3 text-sm font-medium tracking-tight text-foreground/80 hover:text-foreground transition-colors pressable shrink-0"
+            className="flex items-center gap-3 text-sm font-medium tracking-tight text-foreground/80 hover:text-foreground transition-colors pressable shrink-0 cursor-pointer"
           >
             <img src="/logo.png" alt="MB" className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 object-contain" />
             <span className="hidden sm:inline">Malek Bsaissa</span>
@@ -77,7 +77,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={(e) => scrollTo(e, link.href)}
-                  className={`relative text-sm py-1 transition-colors group pressable ${
+                  className={`relative text-sm py-1 transition-colors group pressable cursor-pointer ${
                     isActive ? "text-foreground" : "text-muted hover:text-foreground"
                   }`}
                 >
@@ -98,7 +98,7 @@ export function Navbar() {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
-              className="w-9 h-9 flex items-center justify-center rounded-full text-muted hover:text-foreground transition-colors"
+              className="w-9 h-9 flex items-center justify-center rounded-full text-muted hover:text-foreground transition-colors cursor-pointer"
             >
               {menuOpen ? <X weight="bold" className="w-5 h-5" /> : <List weight="bold" className="w-5 h-5" />}
             </button>
@@ -108,16 +108,19 @@ export function Navbar() {
 
       {menuOpen && (
         <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 animate-fade-in">
-          {links.map((link) => {
+          {links.map((link, i) => {
             const isActive = active === link.id;
             return (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollTo(e, link.href)}
-                className={`text-2xl font-medium tracking-tight transition-all duration-300 pressable ${
+                className={`text-2xl font-medium tracking-tight transition-all duration-500 pressable cursor-pointer opacity-0 translate-y-4 ${
                   isActive ? "text-accent" : "text-foreground"
                 }`}
+                style={{
+                  animation: `menu-link-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${150 + i * 80}ms forwards`,
+                }}
               >
                 {link.label}
               </a>

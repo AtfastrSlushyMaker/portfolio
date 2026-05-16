@@ -41,33 +41,35 @@ export function Hero() {
           <span className="text-accent">.</span>
         </h1>
         <p className="text-lg md:text-xl text-muted mt-8 max-w-xl leading-relaxed">
-          Fourth-year cloud engineering student building real-time
-          geospatial platforms, enterprise applications, and
-          AI-integrated systems. Based in Tunisia.
+          4th year Cloud engineering student at ESPRIT — ARCTIC section. Based in Tunisia.
         </p>
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
           <a
             href="#work"
             onClick={(e) => scrollTo(e, "work")}
-            className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:opacity-80 transition-opacity group pressable"
+            className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:opacity-80 transition-opacity group pressable cursor-pointer"
           >
             View selected work
-            <ArrowRight
-              weight="bold"
-              className="w-4 h-4 icon-spring"
-            />
+            <span className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/15 transition-colors">
+              <ArrowRight
+                weight="bold"
+                className="w-3.5 h-3.5 icon-spring"
+              />
+            </span>
           </a>
           <a
             href="/cv"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors group pressable"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors group pressable cursor-pointer"
           >
             Download CV
-            <ArrowRight
-              weight="bold"
-              className="w-4 h-4 icon-spring"
-            />
+            <span className="w-6 h-6 rounded-full bg-stone-surface flex items-center justify-center group-hover:bg-stone-border/50 transition-colors">
+              <ArrowRight
+                weight="bold"
+                className="w-3.5 h-3.5 icon-spring"
+              />
+            </span>
           </a>
         </div>
       </div>

@@ -103,6 +103,17 @@ body {
   animation: fade-in 0.2s ease-out forwards;
 }
 
+@keyframes menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
@@ -133,4 +144,47 @@ body {
   background: linear-gradient(90deg, var(--color-stone-surface) 0%, var(--color-stone-border) 50%, var(--color-stone-surface) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.8s ease-in-out infinite;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-slate);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  z-index: 60;
+  background: var(--color-accent-slate);
+  transform-origin: left;
+  animation: scroll-progress linear;
+  animation-timeline: scroll();
+}
+
+@keyframes scroll-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes ambient-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(80px, -60px) scale(1.1); }
+  50%  { transform: translate(-40px, 40px) scale(0.9); }
+  75%  { transform: translate(-60px, -30px) scale(1.05); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.animate-ambient {
+  animation: ambient-drift 30s ease-in-out infinite;
 }

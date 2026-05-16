@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://malekbsaissa.vercel.app/sitemap.xml

@@ -33,8 +33,8 @@ export function SectionReveal({
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ease-out ${
-        visible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"
+      className={`transition-all duration-800 ${
+        visible ? "opacity-100 scale-100 blur-0" : "opacity-0 scale-[0.97] blur-sm"
       } ${className ?? ""}`}
       style={{ transformOrigin: "center" }}
     >

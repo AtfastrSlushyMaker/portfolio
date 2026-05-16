@@ -71,6 +71,7 @@ export default function RootLayout({
         <ThemeProvider>
           <PageReveal />
           <CursorGlow />
+          <div className="scroll-progress" />
           <Navbar />
           <main className="flex-1">{children}</main>
           <BackToTop />

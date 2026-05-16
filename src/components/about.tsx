@@ -6,8 +6,8 @@ export function About() {
     <section id="about" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
-          <p className="text-xs text-muted/60 tracking-wide mb-4">
-            <User weight="duotone" className="w-3.5 h-3.5 inline-block mr-1.5 -mt-px" />
+          <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
+            <User weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
             About
           </p>
         </div>
