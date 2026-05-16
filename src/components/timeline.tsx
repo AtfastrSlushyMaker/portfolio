@@ -73,7 +73,7 @@ function TimelineEntry({
   return (
     <div
       ref={ref}
-      className={`relative pl-10 md:pl-14 pb-16 last:pb-0 transition-all duration-700 ${
+      className={`relative pl-10 md:pl-14 pb-16 last:pb-0 transition-all duration-700 section-reveal ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${index * 150}ms` }}

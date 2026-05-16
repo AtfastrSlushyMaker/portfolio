@@ -81,7 +81,7 @@ function ProjectCard({
   index: number;
 }) {
   return (
-    <div className="border-t border-stone-border/60 py-12 md:py-16 first:border-t-0">
+    <div className="border-t border-stone-border/60 py-12 md:py-16 first:border-t-0 section-reveal">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
         <div>
           <div className="flex items-center gap-3 mb-3">

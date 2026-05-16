@@ -39,15 +39,15 @@ export const metadata: Metadata = {
       "Cloud engineering student at ESPRIT — building full-stack applications, transportation platforms, and cloud-native systems from Tunisia.",
     url: "https://malekbsaissa.vercel.app",
     siteName: "Malek Bsaissa",
-    images: [{ url: "/logo.png", width: 512, height: 512 }],
+    images: [{ url: "/og", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Malek Bsaissa",
     description:
       "Cloud engineering student at ESPRIT — building full-stack applications, transportation platforms, and cloud-native systems from Tunisia.",
-    images: ["/logo.png"],
+    images: ["/og"],
   },
 };
 
