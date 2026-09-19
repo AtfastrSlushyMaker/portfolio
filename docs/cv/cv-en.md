@@ -1,26 +1,24 @@
 # Malek Bsaissa
 Cloud, DevOps & Software Engineering
-Ariana, Tunisia | dev.malekbsaissa@gmail.com
-malekbsaissa.vercel.app | github.com/AtfastrSlushyMaker
-linkedin.com/in/malek-bsaissa-8861b229b
+Ariana, Tunisia
+Email: dev.malekbsaissa@gmail.com
+Portfolio: https://malekbsaissa.vercel.app
+GitHub: https://github.com/AtfastrSlushyMaker
+LinkedIn: https://www.linkedin.com/in/malek-bsaissa-8861b229b/
 
+## Summary
 Final-year engineering student seeking an end-of-study internship. Experience building full-stack applications, automating cloud infrastructure, and integrating AI services.
 
-## Education
-
-### ESPRIT School of Engineering | 2022 - 2027 (expected)
-- Engineering Degree in Computer Science. Fifth and final year; Cloud Computing and DevOps specialization.
-
-## Technical Skills
+## Skills
 
 ### Cloud & DevOps
-- OpenStack, Kubernetes, Azure AKS, Docker, Ansible, Terraform, Karmada, GitHub Actions, Linux, NGINX, Prometheus, Grafana.
+- OpenStack, Kubernetes, Docker, Ansible, Linux, Terraform, Azure AKS, Prometheus, Grafana.
 
-### Software Engineering
-- Java, Python, TypeScript, JavaScript, PHP, SQL; Spring Boot, Angular, React, FastAPI, Laravel, Symfony, JavaFX; PostgreSQL, MySQL, REST APIs, WebSocket, Git.
+### Development
+- Python, Java, PHP, Angular, Laravel, Symfony.
 
-### AI & Data
-- LLM integration, tool calling, retrieval-grounded answers, pandas, scikit-learn, LightGBM, CesiumJS.
+### Databases
+- SQL, MySQL, PostgreSQL.
 
 ## Experience
 
@@ -30,14 +28,19 @@ Final-year engineering student seeking an end-of-study internship. Experience bu
 - Deployed an AKS demonstration environment using Terraform and GitHub Actions OIDC; added container builds and Prometheus/Grafana monitoring.
 
 ### Smart Skills, Ariana | Full-Stack Developer Intern | Jun - Aug 2025
-- Built MySkills, a training management platform for administrators, coordinators, trainers and trainees using Laravel, React and MySQL.
+- Built MySkills, a training management platform supporting four user roles: administrators, coordinators, trainers and trainees using Laravel, React and MySQL.
 - Implemented REST APIs, Laravel Sanctum authentication, role-based access control, registration and approval workflows.
 - Added automated certificates, in-app and email notifications, and reporting.
 
 ### Tunisair | Operations Intern | Jun 2023
 - Supported and observed ticketing, refund processing and daily operations at Tunis-Carthage International Airport.
 
-## Selected Projects
+## Education
+
+### ESPRIT School of Engineering | 2022 - 2027 (expected)
+- Engineering Degree in Computer Science. Fifth and final year; Cloud Computing and DevOps specialization.
+
+## Projects
 
 ### Hybrid Cloud Infrastructure | Academic team project | 2026
 - Automated OpenStack infrastructure and Kubernetes configuration with Ansible, Heat and kubeadm; connected private-cloud workloads to Azure AKS through Karmada.
@@ -63,5 +66,11 @@ Final-year engineering student seeking an end-of-study internship. Experience bu
 
 ## Languages
 
-### Arabic: native | English: approximately B2 | French: B1
-- Language levels are self-assessed.
+### Arabic
+- Native.
+
+### English
+- Advanced.
+
+### French
+- Basic conversational.

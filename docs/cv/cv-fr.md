@@ -1,26 +1,24 @@
 # Malek Bsaissa
 Ingénierie cloud, DevOps et développement logiciel
-Ariana, Tunisia | dev.malekbsaissa@gmail.com
-malekbsaissa.vercel.app | github.com/AtfastrSlushyMaker
-linkedin.com/in/malek-bsaissa-8861b229b
+Ariana, Tunisie
+Email: dev.malekbsaissa@gmail.com
+Portfolio: https://malekbsaissa.vercel.app
+GitHub: https://github.com/AtfastrSlushyMaker
+LinkedIn: https://www.linkedin.com/in/malek-bsaissa-8861b229b/
 
+## Profil
 Élève ingénieur en cinquième et dernière année, à la recherche d'un stage de fin d'études. Expérience en développement full-stack, automatisation cloud et intégration de services d'intelligence artificielle.
-
-## Formation
-
-### ESPRIT School of Engineering | 2022 - 2027 (prévu)
-- Diplôme d'ingénieur en informatique. Cinquième et dernière année ; spécialisation Cloud Computing et DevOps.
 
 ## Compétences techniques
 
 ### Cloud et DevOps
-- OpenStack, Kubernetes, Azure AKS, Docker, Ansible, Terraform, Karmada, GitHub Actions, Linux, NGINX, Prometheus, Grafana.
+- OpenStack, Kubernetes, Docker, Ansible, Linux, Terraform, Azure AKS, Prometheus, Grafana.
 
-### Développement logiciel
-- Java, Python, TypeScript, JavaScript, PHP, SQL ; Spring Boot, Angular, React, FastAPI, Laravel, Symfony, JavaFX ; PostgreSQL, MySQL, API REST, WebSocket, Git.
+### Développement
+- Python, Java, PHP, Angular, Laravel, Symfony.
 
-### IA et données
-- Intégration de LLM, appels outils, réponses fondées sur des sources, pandas, scikit-learn, LightGBM, CesiumJS.
+### Bases de données
+- SQL, MySQL, PostgreSQL.
 
 ## Expérience professionnelle
 
@@ -30,12 +28,17 @@ linkedin.com/in/malek-bsaissa-8861b229b
 - Déployé un environnement de démonstration AKS avec Terraform et GitHub Actions OIDC ; ajouté les builds de conteneurs et la supervision Prometheus/Grafana.
 
 ### Smart Skills, Ariana | Stagiaire développement full-stack | Juin - août 2025
-- Développé MySkills avec Laravel, React et MySQL pour les administrateurs, coordinateurs, formateurs et apprenants.
+- Développé MySkills avec Laravel, React et MySQL pour quatre profils : administrateurs, coordinateurs, formateurs et apprenants.
 - Implémenté les API REST, l'authentification Laravel Sanctum, les droits par rôle et les parcours d'inscription et de validation.
 - Ajouté la génération automatique de certificats, les notifications internes et par e-mail, ainsi que les rapports.
 
 ### Tunisair | Stage opérationnel | Juin 2023
 - Observé et accompagné la billetterie, le traitement des remboursements et les opérations à l'aéroport de Tunis-Carthage.
+
+## Formation
+
+### ESPRIT School of Engineering | 2022 - 2027 (prévu)
+- Diplôme d'ingénieur en informatique. Cinquième et dernière année ; spécialisation Cloud Computing et DevOps.
 
 ## Projets sélectionnés
 
@@ -63,5 +66,11 @@ linkedin.com/in/malek-bsaissa-8861b229b
 
 ## Langues
 
-### Arabe : langue maternelle | Anglais : environ B2 | Français : B1
-- Niveaux linguistiques autoévalués.
+### Arabe
+- Langue maternelle.
+
+### Anglais
+- Avancé.
+
+### Français
+- Conversationnel de base.
