@@ -1,4 +1,6 @@
 "use client";
+import { UiIcon } from "./ui-icon";
+
 
 import Image from "next/image";
 import { TechIcon } from "./tech-icon";
@@ -61,7 +63,7 @@ export function Projects() {
           </div>
         </motion.article>
       </div></LayoutGroup>
-      <noscript><div className="static-projects">{projects.slice(1).map(project => <article key={project.id}><h3>{project.title}</h3><p>{project.description}</p><p>{project.detail}</p>{project.links.map(link => <a key={link.href} href={link.href}>{link.label} ↗</a>)}</article>)}</div></noscript>
+      <noscript><div className="static-projects">{projects.slice(1).map(project => <article key={project.id}><h3>{project.title}</h3><p>{project.description}</p><p>{project.detail}</p>{project.links.map(link => <a key={link.href} href={link.href}>{link.label} <UiIcon name="outward" /></a>)}</article>)}</div></noscript>
     </section>
   );
 }

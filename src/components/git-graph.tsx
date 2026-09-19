@@ -1,4 +1,6 @@
 "use client";
+import { UiIcon } from "./ui-icon";
+
 
 import { useEffect, useMemo, useState } from "react";
 
@@ -245,7 +247,7 @@ export function GitGraph() {
     <section id="activity" className="activity-section page-section" aria-labelledby="activity-title">
       <div className="activity-heading">
         <h2 id="activity-title">GitHub activity</h2>
-        <a href="https://github.com/AtfastrSlushyMaker" target="_blank" rel="noopener noreferrer">View GitHub profile ↗</a>
+        <a href="https://github.com/AtfastrSlushyMaker" target="_blank" rel="noopener noreferrer">View GitHub profile <UiIcon name="outward" /></a>
       </div>
       {loading ? <p className="activity-status" role="status">Loading contribution history…</p> : error || years.length === 0 ?
         <p className="activity-status">The contribution calendar is unavailable. The work is on GitHub.</p> : <>

@@ -1,3 +1,4 @@
+import { UiIcon } from "./ui-icon";
 const flows: Record<string, {label:string; nodes:string[]; detail:string}> = {
  atlasmesh:{label:"Live data pipeline",nodes:["18 data sources","Node.js + WebSocket","React + CesiumJS"],detail:"Satellite propagation · entity search · map layers"},
  elif:{label:"Application architecture",nodes:["Angular","Spring Boot + WebSocket","MySQL"],detail:"Community · moderation · real-time chat"},
@@ -10,5 +11,5 @@ const flows: Record<string, {label:string; nodes:string[]; detail:string}> = {
 };
 export function ProjectArchitecture({id}:{id:string}) {
  const flow=flows[id];
- return <figure className="architecture"><figcaption>{flow.label}</figcaption><ol>{flow.nodes.map((node,i)=><li key={node}><span className="architecture-node">{node}</span>{i<flow.nodes.length-1&&<span className="architecture-connector" aria-hidden="true">↓</span>}</li>)}</ol><p>{flow.detail}</p></figure>;
+ return <figure className="architecture"><figcaption>{flow.label}</figcaption><ol>{flow.nodes.map((node,i)=><li key={node}><span className="architecture-node">{node}</span>{i<flow.nodes.length-1&&<span className="architecture-connector" aria-hidden="true"><UiIcon name="down" /></span>}</li>)}</ol><p>{flow.detail}</p></figure>;
 }

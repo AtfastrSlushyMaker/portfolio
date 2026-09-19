@@ -1,3 +1,4 @@
+import { UiIcon } from "./ui-icon";
 const timelineItems = [
   {
     year: "2026",
@@ -54,7 +55,7 @@ export function Timeline() {
       <div className="journey-list">
         {timelineItems.map((item) => (
           <details key={item.title} className="journey-entry">
-            <summary><span className="journey-date">{item.period}</span><span className="journey-identity"><strong>{item.organization}</strong><span>{item.title}</span></span><span className="journey-expand" aria-hidden="true">+</span></summary>
+            <summary><span className="journey-date">{item.period}</span><span className="journey-identity"><strong>{item.organization}</strong><span>{item.title}</span></span><span className="journey-expand" aria-hidden="true"><UiIcon name="plus" /></span></summary>
             <div className="journey-body"><p>{item.location}</p><ul>{item.description.map(line => <li key={line}>{line}</li>)}</ul></div>
           </details>
         ))}

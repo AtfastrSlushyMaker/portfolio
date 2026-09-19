@@ -1,4 +1,6 @@
 "use client";
+import { UiIcon } from "./ui-icon";
+
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -33,12 +35,12 @@ export function Navbar() {
       <nav className="main-nav" aria-label="Main navigation">
         <Link href="/" className="brand" aria-label="Malek Bsaissa home">mb<span>.</span></Link>
         <div className="desktop-nav">{links.map(link => <a key={link.id} href={`/#${link.id}`} aria-current={pathname === "/" && active === link.id ? "location" : undefined}>{link.label}</a>)}</div>
-        <div className="nav-tools"><Link href="/cv" className="cv-link">Résumé ↗</Link><ThemeToggle />
-          <button ref={button} className="menu-toggle" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}<span aria-hidden="true">{open ? "−" : "+"}</span></button>
+        <div className="nav-tools"><Link href="/cv" className="cv-link">Résumé <UiIcon name="outward" /></Link><ThemeToggle />
+          <button ref={button} className="menu-toggle" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}<span aria-hidden="true"><UiIcon name={open ? "minus" : "plus"} /></span></button>
         </div>
       </nav>
       <AnimatePresence initial={false}>{open && <motion.nav id="mobile-menu" aria-label="Mobile navigation" className="mobile-nav" initial={enabled ? {height:0} : false} animate={{height:"auto"}} exit={{height:0}} transition={{duration:enabled ? .38 : 0,ease:[.22,1,.36,1]}}>
-        <div className="mobile-nav-inner">{links.map((link,index) => <motion.a initial={enabled ? {x:-10} : false} animate={{x:0}} transition={{duration:.35,delay:enabled ? index*.035 : 0,ease:[.22,1,.36,1]}} key={link.id} href={`/#${link.id}`} onClick={() => setOpen(false)}>{link.label}<span aria-hidden="true">↗</span></motion.a>)}</div>
+        <div className="mobile-nav-inner">{links.map((link,index) => <motion.a initial={enabled ? {x:-10} : false} animate={{x:0}} transition={{duration:.35,delay:enabled ? index*.035 : 0,ease:[.22,1,.36,1]}} key={link.id} href={`/#${link.id}`} onClick={() => setOpen(false)}>{link.label}<span aria-hidden="true"><UiIcon name="outward" /></span></motion.a>)}</div>
       </motion.nav>}</AnimatePresence>
     </header>
   );
