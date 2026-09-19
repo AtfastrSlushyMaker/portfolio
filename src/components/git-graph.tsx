@@ -1,9 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChartBar } from "@phosphor-icons/react";
-import { SectionReveal } from "./section-reveal";
-import { SpotlightText } from "./spotlight-text";
 
 interface Day {
   date: string;
@@ -28,7 +25,7 @@ const MONTHS = [
   "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
 
-const DAY_LABELS = ["Mon", "", "Wed", "", "Fri", "", ""];
+const DAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
 
 function getLevel(count: number): 0 | 1 | 2 | 3 | 4 {
   if (count === 0) return 0;
@@ -52,15 +49,15 @@ function processYear(flatDays: Day[]): YearData {
 
   const first = new Date(sorted[0].date);
 
-  const start = new Date(first.getFullYear(), 0, 1);
+  const start = new Date(Date.UTC(first.getUTCFullYear(), 0, 1));
   // Align start to Sunday
-  const startDay = start.getDay();
-  if (startDay > 0) start.setDate(start.getDate() - startDay);
+  const startDay = start.getUTCDay();
+  if (startDay > 0) start.setUTCDate(start.getUTCDate() - startDay);
 
-  const end = new Date(first.getFullYear(), 11, 31);
+  const end = new Date(Date.UTC(first.getUTCFullYear(), 11, 31));
   // Align end to Saturday
-  const endDay = end.getDay();
-  end.setDate(end.getDate() + (6 - endDay));
+  const endDay = end.getUTCDay();
+  end.setUTCDate(end.getUTCDate() + (6 - endDay));
 
   const weeks: Day[][] = [];
   const monthLabels: { index: number; label: string }[] = [];
@@ -75,8 +72,8 @@ function processYear(flatDays: Day[]): YearData {
       const key = cursor.toISOString().slice(0, 10);
       const found = byDate.get(key);
 
-      const m = MONTHS[cursor.getMonth()];
-      if (m !== currentMonth) {
+      const m = MONTHS[cursor.getUTCMonth()];
+      if (m !== currentMonth && cursor.getUTCFullYear() === first.getUTCFullYear()) {
         currentMonth = m;
         monthLabels.push({ index: weekIndex, label: m });
       }
@@ -85,7 +82,7 @@ function processYear(flatDays: Day[]): YearData {
         found ?? { date: key, count: 0, level: 0 as const }
       );
 
-      cursor.setDate(cursor.getDate() + 1);
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
     }
 
     weeks.push(week);
@@ -94,7 +91,7 @@ function processYear(flatDays: Day[]): YearData {
 
   const total = flatDays.reduce((s, d) => s + d.count, 0);
 
-  return { year: first.getFullYear(), total, weeks, monthLabels };
+  return { year: first.getUTCFullYear(), total, weeks, monthLabels };
 }
 
 function groupByYear(apiWeeks: ApiDay[][]): YearData[] {
@@ -128,7 +125,7 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
     : 0;
 
   return (
-    <div className="overflow-x-auto max-w-full pb-1 flex justify-center md:justify-start">
+    <div className="overflow-x-auto max-w-full pb-1">
       <div>
         <div className="flex" style={{ paddingLeft: 32, gap: CELL_GAP }}>
           <div className="flex" style={{ gap: CELL_GAP }}>
@@ -137,7 +134,7 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
               return (
                 <div
                   key={wi}
-                  className="text-[10px] text-muted/50 font-mono"
+                  className="text-[10px] text-muted font-mono"
                   style={{ width: CELL_SIZE, textAlign: "left" }}
                 >
                   {label?.label ?? ""}
@@ -155,7 +152,7 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
             {DAY_LABELS.map((label, i) => (
               <div
                 key={i}
-                className="text-[10px] text-muted/40 font-mono flex items-center"
+                className="text-[10px] text-muted font-mono flex items-center"
                 style={{ height: CELL_SIZE }}
               >
                 {label}
@@ -174,13 +171,13 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
                   <div
                     key={di}
                     title={day.date ? `${day.date}: ${day.count} contributions` : ""}
-                    className="cursor-pointer"
+                    className="cursor-default"
                     style={{
                       width: CELL_SIZE,
                       height: CELL_SIZE,
                       borderRadius: CELL_RADIUS,
                       backgroundColor: day.level
-                        ? `rgba(232, 93, 58, ${0.12 + day.level * 0.22})`
+                        ? `color-mix(in srgb, var(--color-accent-slate) ${20 + day.level * 20}%, var(--color-stone-surface))`
                         : "var(--color-stone-surface)",
                     }}
                   />
@@ -190,7 +187,7 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 mt-4 text-[10px] text-muted/40 font-mono" style={{ paddingLeft: 32 }}>
+        <div className="flex items-center gap-1.5 mt-4 text-[10px] text-muted font-mono" style={{ paddingLeft: 32 }}>
           <span>Less</span>
           {[0, 1, 2, 3, 4].map((level) => (
             <div
@@ -200,7 +197,7 @@ function ContributionGrid({ yearData }: { yearData: YearData }) {
                   height: CELL_SIZE,
                   borderRadius: CELL_RADIUS,
                   backgroundColor: level
-                    ? `rgba(232, 93, 58, ${0.12 + level * 0.22})`
+                    ? `color-mix(in srgb, var(--color-accent-slate) ${20 + level * 20}%, var(--color-stone-surface))`
                     : "var(--color-stone-surface)",
                 }}
             />
@@ -243,80 +240,20 @@ export function GitGraph() {
     [years, displayedYear]
   );
 
-  if (loading) {
-    return (
-      <section id="activity" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
-              <ChartBar weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
-              Activity
-            </p>
-          </div>
-          <div>
-            <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-8">
-              GitHub contributions.
-            </h2>
-            <div className="h-32 rounded-lg shimmer-bg" />
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) return null;
 
   return (
-    <section id="activity" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
-              <ChartBar weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
-              Activity
-            </p>
-        </div>
-          <div>
-            <SectionReveal>
-              <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-1">
-                <SpotlightText className="text-foreground" radius={280}>
-                  GitHub contributions.
-                </SpotlightText>
-              </h2>
-              <p className="text-sm text-muted mb-2 font-mono tabular-nums">
-                {years.reduce((s, y) => s + y.total, 0).toLocaleString()} contributions across {years.length} years
-              </p>
-              <p className="text-xs text-muted/40 mb-8">
-                <a
-                  href="https://github.com/AtfastrSlushyMaker"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-muted transition-colors cursor-pointer"
-                >
-                  View profile on GitHub →
-                </a>
-              </p>
-            </SectionReveal>
-
-          <div className="flex flex-wrap gap-2 mb-8">
-            {years.map((y) => (
-              <button
-                key={y.year}
-                onClick={() => setSelectedYear(y.year)}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all font-mono cursor-pointer ${
-                  displayedYear === y.year
-                    ? "border-accent bg-accent/10 text-accent"
-                    : "border-stone-border/50 text-muted hover:border-stone-muted"
-                }`}
-              >
-                {y.year}
-                <span className="ml-1.5 opacity-50">{y.total}</span>
-              </button>
-            ))}
-          </div>
-
-          {yearData && <ContributionGrid yearData={yearData} />}
-        </div>
+    <section id="activity" className="activity-section page-section" aria-labelledby="activity-title">
+      <div className="activity-heading">
+        <h2 id="activity-title">GitHub activity</h2>
+        <a href="https://github.com/AtfastrSlushyMaker" target="_blank" rel="noopener noreferrer">View GitHub profile ↗</a>
       </div>
+      {loading ? <p className="activity-status" role="status">Loading contribution history…</p> : error || years.length === 0 ?
+        <p className="activity-status">The contribution calendar is unavailable. The work is on GitHub.</p> : <>
+          <div className="activity-controls"><p>{years.reduce((sum,year) => sum + year.total,0).toLocaleString()} contributions across {years.length} years</p>
+            <div role="group" aria-label="Contribution year">{years.map(year => <button key={year.year} onClick={() => setSelectedYear(year.year)} aria-pressed={displayedYear === year.year}>{year.year}</button>)}</div>
+          </div>
+          {yearData && <ContributionGrid yearData={yearData} />}
+        </>}
     </section>
   );
 }

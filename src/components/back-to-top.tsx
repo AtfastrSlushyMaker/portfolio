@@ -13,14 +13,16 @@ export function BackToTop() {
   }, []);
 
   const scrollUp = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
   }, []);
 
   return (
     <button
       onClick={scrollUp}
       aria-label="Back to top"
-      className={`fixed bottom-8 right-8 z-40 w-10 h-10 rounded-full border border-stone-border/50 bg-warm-paper/80 backdrop-blur-md text-muted hover:text-foreground hover:border-stone-border transition-all duration-300 flex items-center justify-center pressable cursor-pointer ${
+      tabIndex={visible ? 0 : -1}
+      aria-hidden={!visible}
+      className={`fixed bottom-8 right-8 z-40 w-10 h-10 rounded-full bg-background text-muted hover:text-foreground  transition-all duration-300 flex items-center justify-center pressable cursor-pointer ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
     >

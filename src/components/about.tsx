@@ -1,73 +1,20 @@
-import { User } from "@phosphor-icons/react/dist/ssr";
 import { SectionReveal } from "./section-reveal";
-
+const skills = [
+  {title:"Interfaces",items:"React, Angular, TypeScript, CesiumJS"},
+  {title:"Backend",items:"Spring Boot, Node.js, FastAPI, Laravel, Symfony"},
+  {title:"Infrastructure",items:"Kubernetes, OpenStack, Azure, Ansible, Terraform, Docker"},
+  {title:"AI & data",items:"Python, scikit-learn, LLM tools, PostgreSQL, MySQL"},
+];
 export function About() {
-  return (
-    <section id="about" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
-            <User weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
-            About
-          </p>
-        </div>
-        <div className="space-y-8">
-          <SectionReveal>
-            <p className="text-xl md:text-2xl text-foreground leading-relaxed tracking-tight max-w-[50ch]">
-              I am a fourth-year cloud engineering student at ESPRIT,
-              specializing in the ARCTIC section. I build full-stack
-              systems that work across web, desktop, and cloud.
-            </p>
-          </SectionReveal>
-          <SectionReveal>
-            <p className="text-base text-muted leading-relaxed max-w-[55ch]">
-              My work spans real-time geospatial platforms with 3D
-              visualization, multi-role enterprise applications,
-              AI-integrated transportation systems, and full-stack
-              training platforms. I care about clean architecture,
-              containerization, and shipping code that runs reliably
-              in production.
-            </p>
-          </SectionReveal>
-          <SectionReveal>
-            <div className="grid grid-cols-3 gap-4 pt-8">
-            <div>
-              <h4 className="text-sm font-medium text-foreground mb-2">
-                Frontend
-              </h4>
-              <ul className="text-sm text-muted space-y-1.5">
-                <li>React / Angular</li>
-                <li>TypeScript</li>
-                <li>CesiumJS</li>
-                <li>Tailwind CSS</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-foreground mb-2">
-                Backend
-              </h4>
-              <ul className="text-sm text-muted space-y-1.5">
-                <li>Node.js / Flask</li>
-                <li>Spring Boot</li>
-                <li>Symfony / Laravel</li>
-                <li>Java / PHP / Python</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-foreground mb-2">
-                DevOps &amp; Data
-              </h4>
-              <ul className="text-sm text-muted space-y-1.5">
-                <li>Docker</li>
-                <li>MySQL</li>
-                <li>Cloud (Openstack)</li>
-                <li>AI/ML Integration</li>
-              </ul>
-            </div>
-          </div>
-          </SectionReveal>
-        </div>
+  return <section id="about" className="about-section page-section" aria-labelledby="about-title">
+    <SectionReveal className="about-intro">
+      <h2 id="about-title">About me</h2>
+      <div className="about-copy">
+        <p>I’m a fifth-year, final-year engineering student at ESPRIT in Tunisia, specializing in Cloud Computing & DevOps (ARCTIC).</p>
+        <p>I’m looking for an end-of-study internship in cloud engineering, DevOps, or full-stack development.</p>
+        <p>My work includes OpenStack and Kubernetes infrastructure, web applications, real-time geospatial systems, and machine-learning services. The project descriptions identify my contribution within each team.</p>
       </div>
-    </section>
-  );
+    </SectionReveal>
+    <div className="skills-list">{skills.map(skill => <div key={skill.title}><h3>{skill.title}</h3><p>{skill.items}</p></div>)}</div>
+  </section>;
 }

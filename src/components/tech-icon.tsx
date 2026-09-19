@@ -1,6 +1,14 @@
 "use client";
 
 import {
+  SiOpenstack,
+  SiAnsible,
+  SiPrometheus,
+  SiGrafana,
+  SiPostgresql,
+  SiKubernetes,
+  SiTerraform,
+  SiGithubactions,
   SiReact,
   SiTypescript,
   SiNodedotjs,
@@ -23,6 +31,14 @@ import {
 } from "@icons-pack/react-simple-icons";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  "OpenStack": SiOpenstack,
+  "Ansible": SiAnsible,
+  "Prometheus": SiPrometheus,
+  "Grafana": SiGrafana,
+  "PostgreSQL": SiPostgresql,
+  "Kubernetes": SiKubernetes,
+  "Terraform": SiTerraform,
+  "GitHub Actions": SiGithubactions,
   "React": SiReact,
   "React 18": SiReact,
   "TypeScript": SiTypescript,

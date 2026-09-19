@@ -10,9 +10,9 @@ export default function Home() {
     <>
       <Hero />
       <Projects />
-      <GitGraph />
-      <Timeline />
       <About />
+      <Timeline />
+      <GitGraph />
       <Contact />
     </>
   );

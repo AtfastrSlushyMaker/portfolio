@@ -18,6 +18,7 @@ export function SpotlightText({
   const layerClass = className ?? "";
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches) return;
     const el = ref.current;
     if (!el) return;
 

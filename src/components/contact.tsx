@@ -1,73 +1,19 @@
-import { ArrowUpRight, Envelope, FileText, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
-import { SectionReveal } from "./section-reveal";
-import { SpotlightText } from "./spotlight-text";
+"use client";
 
+import { PointerMask } from "./pointer-mask";
+import { useState } from "react";
+import { ArrowUpRight, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
+const email = "dev.malekbsaissa@gmail.com";
 export function Contact() {
-  return (
-    <section id="contact" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
-      <div className="border-t border-stone-border/60 pt-16 md:pt-24">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
-              <Envelope weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
-              Contact
-            </p>
-          </div>
-          <div>
-            <SectionReveal>
-              <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground mb-8">
-                <SpotlightText className="text-foreground" radius={280}>
-                  Let us work
-                </SpotlightText>
-                <br />
-                <SpotlightText className="text-foreground" radius={280}>
-                  together.
-                </SpotlightText>
-              </h2>
-            </SectionReveal>
-            <a
-              href="mailto:dev.malekbsaissa@gmail.com"
-              className="inline-flex items-center gap-2 text-lg text-accent hover:opacity-80 transition-opacity group mb-8 cursor-pointer"
-            >
-              dev.malekbsaissa@gmail.com
-              <ArrowUpRight weight="bold" className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-            <div className="flex flex-wrap gap-6">
-              <a
-                href="/cv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable cursor-pointer"
-              >
-                <FileText weight="duotone" className="w-4 h-4" />
-                Download CV
-              </a>
-              <a
-                href="https://github.com/AtfastrSlushyMaker"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable cursor-pointer"
-              >
-                <GithubLogo weight="duotone" className="w-4 h-4" />
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/malek-bsaissa-8861b229b/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors pressable cursor-pointer"
-              >
-                <LinkedinLogo weight="duotone" className="w-4 h-4" />
-                LinkedIn
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer className="mt-32 pt-8 border-t border-stone-border/30 flex flex-col sm:flex-row justify-between gap-2 text-xs text-muted/50">
-        <span>&copy; {new Date().getFullYear()} Malek Bsaissa</span>
-        <span>Built with Next.js, TypeScript, Tailwind</span>
-      </footer>
-    </section>
-  );
+  const [copyState,setCopyState] = useState<"idle"|"copied"|"failed">("idle");
+  async function copyEmail() {
+    try {await navigator.clipboard.writeText(email);setCopyState("copied");}
+    catch {setCopyState("failed");}
+  }
+  return <section id="contact" className="contact-section page-section" aria-labelledby="contact-title">
+    <div className="contact-top"><PointerMask id="contact-title">Get in touch</PointerMask><div className="contact-aside"><p>End-of-study internship opportunities<br />in cloud, DevOps, or software engineering.</p><a href={`mailto:${email}`} className="contact-action">Email me <ArrowUpRight size={42} weight="light" /></a></div></div>
+    <div className="contact-details"><div className="email-row"><a href={`mailto:${email}`}>{email}</a><button onClick={copyEmail}>{copyState === "copied" ? "Copied" : "Copy"}</button><span role="status" className={copyState === "failed" ? "copy-error" : "sr-only"}>{copyState === "copied" ? "Email address copied." : copyState === "failed" ? "Copy unavailable. Select the email or use the email link." : ""}</span></div>
+      <div className="social-links"><a href="https://github.com/AtfastrSlushyMaker" target="_blank" rel="noopener noreferrer"><GithubLogo size={20} />GitHub</a><a href="https://www.linkedin.com/in/malek-bsaissa-8861b229b/" target="_blank" rel="noopener noreferrer"><LinkedinLogo size={20} />LinkedIn</a><a href="/cv">Résumé <ArrowUpRight size={18} /></a></div></div>
+    <footer className="footer"><span>© {new Date().getFullYear()} Malek Bsaissa</span><a href="#hero-name">Back to top ↑</a><span>Tunisia</span></footer>
+  </section>;
 }

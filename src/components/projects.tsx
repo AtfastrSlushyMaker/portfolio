@@ -1,191 +1,67 @@
 "use client";
 
-import { ArrowUpRight, Briefcase } from "@phosphor-icons/react";
-import { SectionReveal } from "./section-reveal";
-import { SpotlightText } from "./spotlight-text";
+import Image from "next/image";
 import { TechIcon } from "./tech-icon";
+import { useState } from "react";
+import { LayoutGroup, motion } from "framer-motion";
+import { ArrowUpRight } from "@phosphor-icons/react";
+import { projects, type ProjectCategory } from "@/lib/projects";
+import { ProjectArchitecture } from "./project-architecture";
+import { usePortfolioMotion } from "./motion-provider";
 
-const projects = [
-  {
-    title: "AtlasMesh",
-    role: "React / CesiumJS / Node.js / TypeScript",
-    contribution: "Solo project",
-    date: "2026",
-    description:
-      "Real-time 3D geospatial visualization platform aggregating 18 live data sources — aircraft, ships, satellites, ISS, Starlink, earthquakes, volcanoes, wildfires, weather — rendered simultaneously on a CesiumJS globe. Full-stack with REST API, deployed on Render.",
-    link: "https://github.com/AtfastrSlushyMaker/AtlasMesh",
-    live: "https://atlasmesh.onrender.com",
-    tags: ["React 18", "CesiumJS", "TypeScript", "Node.js", "Docker", "Render"],
-  },
-  {
-    title: "Elif — Pet Care Platform",
-    role: "Angular 18 / Spring Boot 3.5 / MySQL",
-    contribution: "Community Module · 4th Year · Team",
-    date: "2025",
-    description:
-      "Full-stack pet-care monorepo spanning 8 business domains. Built the community system: posts, threaded comments, voting, real-time chat with mentions, moderation tools, and notification pipelines. Angular front-office with a Spring Boot REST API.",
-    link: "https://github.com/AtfastrSlushyMaker/Elif",
-    tags: ["Angular", "Spring Boot", "Java 17", "TypeScript", "MySQL", "Monorepo"],
-  },
-  {
-    title: "Elif AI Agent",
-    role: "Python / FastAPI / Groq LLM",
-    contribution: "Microservice · Solo",
-    date: "2025",
-    description:
-      "Standalone LLM-powered agent loop microservice for natural-language community search within Elif. Retrieves context from community APIs, plans actions via Groq, executes API calls, and returns grounded answers with follow-up suggestions. Provider-agnostic agent architecture.",
-    link: "https://github.com/AtfastrSlushyMaker/elif-community-ai-agent-nl",
-    tags: ["Python", "FastAPI", "Groq", "LLM Agent", "Microservice"],
-  },
-  {
-    title: "WamiaGo",
-    role: "JavaFX / Symfony / MySQL",
-    contribution: "Bicycle Module · 3rd Year · Team",
-    subtitle: "Desktop + Webapp",
-    date: "2024",
-    description:
-      "Transportation management platform for Tunisia combining a JavaFX desktop application with a Symfony web platform. Built the electric bicycle module — station-based bike management with QR code unlocking, real-time availability tracking, and automated rental lifecycle. Developed the companion web platform sharing data models and business logic across both applications for seamless cross-platform operation.",
-    link: "https://github.com/AtfastrSlushyMaker/WamiaGo-Webapp",
-    linkLabel: "Webapp source",
-    extraLink: { label: "Desktop source", href: "https://github.com/AtfastrSlushyMaker/WamiaGo-Desktop" },
-    tags: ["JavaFX", "Symfony", "PHP 8", "MySQL"],
-  },
-  {
-    title: "MySkills",
-    role: "Laravel 12 / React 18 / MySQL",
-    contribution: "Internship · Summer 2025",
-    date: "Summer 2025",
-    description:
-      "Six-week internship project building a training management platform from the ground up. Multi-role architecture (Admin, Coordinator, Trainer, Trainee), course creation and scheduling, registration workflows with approval pipelines, certificate generation, and analytics dashboard.",
-    link: "https://github.com/AtfastrSlushyMaker/MySkills",
-    tags: ["Laravel", "React", "PHP", "TypeScript", "MySQL", "Ant Design"],
-  },
-  {
-    title: "The 12th Man",
-    role: "Python / scikit-learn / pandas / ML",
-    contribution: "4th Year · Team",
-    date: "2025",
-    description:
-      "AI-powered football analytics platform predicting Premier League standings, match outcomes, team tactical styles, and rising talent across Europe's top 5 leagues. Applied feature engineering on multi-season data and evaluated Logistic Regression, Random Forest, and XGBoost models against historical baselines.",
-    link: "https://github.com/AtfastrSlushyMaker/the-12th-player",
-    live: "https://the-12th-player-app.onrender.com",
-    tags: ["Python", "scikit-learn", "pandas", "XGBoost", "ML", "TypeScript"],
-  },
-];
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: (typeof projects)[number];
-  index: number;
-}) {
-  return (
-    <div className="border-t border-stone-border/60 py-12 md:py-16 first:border-t-0 section-reveal">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 md:gap-16">
-        <div>
-          <div className="flex items-center gap-3 mb-3">
-            <p className="text-xs text-muted/60 tracking-wide">
-              {String(index + 1).padStart(2, "0")}
-            </p>
-            <span className="text-[10px] text-muted/40 font-mono">{project.date}</span>
-          </div>
-          <h3 className="text-2xl font-medium tracking-tight">
-            <SpotlightText className="text-foreground" radius={320}>
-              {project.title}
-            </SpotlightText>
-            {"subtitle" in project && project.subtitle && (
-              <span className="text-sm text-muted/50 font-normal ml-2">
-                ({project.subtitle})
-              </span>
-            )}
-          </h3>
-          <p className="text-sm text-muted mt-2">{project.role}</p>
-          <p className="text-xs text-accent mt-1.5 font-medium">
-            {project.contribution}
-          </p>
-        </div>
-        <div className="space-y-4">
-          <p className="text-base text-muted leading-relaxed max-w-[65ch]">
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2.5 py-1 rounded-full bg-stone-surface/80 text-muted border border-stone-border/40 hover:border-stone-border/60 tag-hover inline-flex items-center gap-1 cursor-pointer"
-              >
-                <TechIcon name={tag} />
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="flex items-center gap-6 pt-1">
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-accent font-medium group cursor-pointer"
-            >
-              {"linkLabel" in project && project.linkLabel
-                ? project.linkLabel
-                : "Source"}
-              <ArrowUpRight weight="bold" className="w-3.5 h-3.5 icon-spring" />
-            </a>
-            {"live" in project && project.live && (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-accent font-medium group cursor-pointer"
-              >
-                Live Demo
-                <ArrowUpRight weight="bold" className="w-3.5 h-3.5 icon-spring" />
-              </a>
-            )}
-            {"extraLink" in project && project.extraLink && (
-              <a
-                href={project.extraLink.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm text-accent font-medium group cursor-pointer"
-              >
-                {project.extraLink.label}
-                <ArrowUpRight weight="bold" className="w-3.5 h-3.5 icon-spring" />
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const filters = ["Everything", "Applications", "Cloud", "AI & data"] as const;
+type Filter = typeof filters[number];
 
 export function Projects() {
+  const [filter, setFilter] = useState<Filter>("Everything");
+  const [selectedId, setSelectedId] = useState(projects[0].id);
+  const { enabled } = usePortfolioMotion();
+  const visible = projects.filter(p => filter === "Everything" || p.category === filter as ProjectCategory);
+  const selected = visible.find(p => p.id === selectedId) ?? visible[0];
   return (
-    <section id="work" className="px-6 py-20 md:py-48 max-w-7xl mx-auto w-full">
-      <SectionReveal>
-        <div className="mb-16 md:mb-24">
-          <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-muted/50 mb-4">
-            <Briefcase weight="duotone" className="w-3 h-3 inline-block mr-1.5 -mt-px" />
-            Selected Work
-          </p>
-          <h2 className="text-3xl md:text-5xl tracking-tighter font-medium text-foreground">
-            <SpotlightText className="text-foreground" radius={280}>
-              Building systems
-            </SpotlightText>
-            <br />
-            <SpotlightText className="text-foreground" radius={280}>
-              from the ground up.
-            </SpotlightText>
-          </h2>
-        </div>
-      </SectionReveal>
-      <div>
-        {projects.map((project, i) => (
-          <ProjectCard key={project.title} project={project} index={i} />
-        ))}
+    <section id="work" className="work-section page-section" aria-labelledby="work-title">
+      <div className="work-heading">
+        <h2 id="work-title">Selected projects</h2>
+        <p>Applications, infrastructure,<br />and machine learning.</p>
       </div>
+      <div className="project-filters" role="group" aria-label="Filter projects">
+        {filters.map(value => <button key={value} aria-pressed={filter === value} onClick={() => setFilter(value)}>
+          {value}<span>{value === "Everything" ? projects.length : projects.filter(p => p.category === value).length}</span>
+        </button>)}
+      </div>
+      <LayoutGroup id="project-browser"><div className="work-browser">
+        <div className="project-index" aria-label="Select a project">
+          {visible.map(project => <motion.button
+            layout={enabled ? "position" : false}
+            transition={{type:"spring", stiffness:330, damping:34}}
+            key={project.id}
+            aria-pressed={selected.id === project.id}
+            aria-controls="project-detail"
+            onClick={() => setSelectedId(project.id)}
+            className="project-choice"
+          >
+            {selected.id === project.id && <motion.span className="project-selection" layoutId={enabled ? "selected-project" : undefined} transition={{type:"spring",stiffness:300,damping:36}} aria-hidden="true" />}
+            <span className="project-number">{String(projects.indexOf(project) + 1).padStart(2,"0")}</span>
+            <span className="project-choice-title">{project.title}<span>{project.subtitle}</span></span>
+            <ArrowUpRight className="project-choice-arrow" size={24} weight="light" aria-hidden="true" />
+          </motion.button>)}
+        </div>
+        <motion.article key={selected.id} initial={false} animate={{x: enabled ? [12,0] : 0}} transition={{duration:.45,ease:[.22,1,.36,1]}} id="project-detail" className="project-detail" aria-label={`${selected.title} project details`}>
+          <ProjectArchitecture id={selected.id} />
+          <div key={selected.id} className="project-copy" aria-live="polite">
+            <div className="project-meta"><span>{selected.role}</span><span>{selected.year}</span></div>
+            <h3>{selected.title}</h3>
+            <p className="project-description">{selected.description}</p>
+            <p className="project-detail-text">{selected.detail}</p>
+            <ul className="project-stack" aria-label="Technologies">{selected.stack.map(item => <li key={item}><TechIcon name={item} />{item}</li>)}</ul>
+            <div className="project-links">{selected.links.map(link => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={18} aria-hidden="true" /></a>)}</div>
+            {selected.id === "hybrid" && <div className="openstack-services" aria-label="OpenStack services">{[["Nova","Compute"],["Neutron","Networking"],["Keystone","Identity"],["Glance","VM images"],["Heat","Orchestration"],["Horizon","Dashboard"],["Octavia","Load balancing"],["Cinder","Block storage"],["Swift","Object storage"]].map(([name,role])=><figure key={name}><Image src={`/logos/openstack/${name.toLowerCase()}.png`} alt={`${name} logo`} width={180} height={90} /><figcaption><strong>{name}</strong><span>{role}</span></figcaption></figure>)}</div>}
+            {selected.sections?.map(section => <section className="project-deep-detail" key={section.title}><h4>{section.title}</h4><p>{section.text}</p></section>)}
+            {selected.note && <p className="project-note">{selected.note}</p>}
+          </div>
+        </motion.article>
+      </div></LayoutGroup>
+      <noscript><div className="static-projects">{projects.slice(1).map(project => <article key={project.id}><h3>{project.title}</h3><p>{project.description}</p><p>{project.detail}</p>{project.links.map(link => <a key={link.href} href={link.href}>{link.label} ↗</a>)}</article>)}</div></noscript>
     </section>
   );
 }

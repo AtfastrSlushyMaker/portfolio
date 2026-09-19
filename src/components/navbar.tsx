@@ -1,133 +1,45 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { List, X } from "@phosphor-icons/react";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { ThemeToggle } from "./theme-toggle";
+import { usePortfolioMotion } from "./motion-provider";
 
-const links = [
-  { href: "#work", label: "Work", id: "work" },
-  { href: "#activity", label: "Activity", id: "activity" },
-  { href: "#experience", label: "Experience", id: "experience" },
-  { href: "#about", label: "About", id: "about" },
-  { href: "#contact", label: "Contact", id: "contact" },
-];
-
+const links = [{id:"work",label:"Work"},{id:"about",label:"About"},{id:"experience",label:"Experience"},{id:"contact",label:"Contact"}];
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
-  const [menuOpen, setMenuOpen] = useState(false);
-
+  const button = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+  const {enabled} = usePortfolioMotion();
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const sections = links.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        }
-      },
-      { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
-    );
-    sections.forEach((s) => observer.observe(s));
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) if(entry.isIntersecting) setActive(entry.target.id);
+    }, {rootMargin:"-20% 0px -60% 0px"});
+    links.forEach(link => { const el = document.getElementById(link.id); if(el) observer.observe(el); });
     return () => observer.disconnect();
-  }, []);
-
-  const scrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMenuOpen(false);
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  }, []);
-
+  }, [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const escape = (event: KeyboardEvent) => { if(event.key === "Escape") {setOpen(false);button.current?.focus();} };
+    const resize = () => {if(innerWidth >= 800) setOpen(false);};
+    window.addEventListener("keydown",escape);window.addEventListener("resize",resize);
+    return () => {window.removeEventListener("keydown",escape);window.removeEventListener("resize",resize);};
+  },[open]);
   return (
-    <>
-      <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-          scrolled || menuOpen
-            ? "bg-warm-paper/80 backdrop-blur-md border-b border-stone-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
-            : "bg-transparent"
-        }`}
-      >
-        <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center gap-3 text-sm font-medium tracking-tight text-foreground/80 hover:text-foreground transition-colors pressable shrink-0 cursor-pointer"
-          >
-            <img src="/logo.png" alt="MB" className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 object-contain" />
-            <span className="hidden sm:inline">Malek Bsaissa</span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-6">
-            {links.map((link) => {
-              const isActive = active === link.id;
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => scrollTo(e, link.href)}
-                  className={`relative text-sm py-1 transition-colors group pressable cursor-pointer ${
-                    isActive ? "text-foreground" : "text-muted hover:text-foreground"
-                  }`}
-                >
-                  {link.label}
-                  <span
-                    className={`absolute bottom-0 left-0 h-px bg-accent transition-all duration-300 ${
-                      isActive ? "w-full" : "w-0 group-hover:w-full"
-                    }`}
-                  />
-                </a>
-              );
-            })}
-            <ThemeToggle />
-          </div>
-
-          <div className="flex md:hidden items-center gap-3">
-            <ThemeToggle />
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
-              className="w-9 h-9 flex items-center justify-center rounded-full text-muted hover:text-foreground transition-colors cursor-pointer"
-            >
-              {menuOpen ? <X weight="bold" className="w-5 h-5" /> : <List weight="bold" className="w-5 h-5" />}
-            </button>
-          </div>
-        </nav>
-      </header>
-
-      {menuOpen && (
-        <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 animate-fade-in">
-          {links.map((link, i) => {
-            const isActive = active === link.id;
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => scrollTo(e, link.href)}
-                className={`text-2xl font-medium tracking-tight transition-all duration-500 pressable cursor-pointer opacity-0 translate-y-4 ${
-                  isActive ? "text-accent" : "text-foreground"
-                }`}
-                style={{
-                  animation: `menu-link-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${150 + i * 80}ms forwards`,
-                }}
-              >
-                {link.label}
-              </a>
-            );
-          })}
+    <header className="site-header">
+      <nav className="main-nav" aria-label="Main navigation">
+        <Link href="/" className="brand" aria-label="Malek Bsaissa home">mb<span>.</span></Link>
+        <div className="desktop-nav">{links.map(link => <a key={link.id} href={`/#${link.id}`} aria-current={pathname === "/" && active === link.id ? "location" : undefined}>{link.label}</a>)}</div>
+        <div className="nav-tools"><Link href="/cv" className="cv-link">Résumé ↗</Link><ThemeToggle />
+          <button ref={button} className="menu-toggle" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}<span aria-hidden="true">{open ? "−" : "+"}</span></button>
         </div>
-      )}
-    </>
+      </nav>
+      <AnimatePresence initial={false}>{open && <motion.nav id="mobile-menu" aria-label="Mobile navigation" className="mobile-nav" initial={enabled ? {height:0} : false} animate={{height:"auto"}} exit={{height:0}} transition={{duration:enabled ? .38 : 0,ease:[.22,1,.36,1]}}>
+        <div className="mobile-nav-inner">{links.map((link,index) => <motion.a initial={enabled ? {x:-10} : false} animate={{x:0}} transition={{duration:.35,delay:enabled ? index*.035 : 0,ease:[.22,1,.36,1]}} key={link.id} href={`/#${link.id}`} onClick={() => setOpen(false)}>{link.label}<span aria-hidden="true">↗</span></motion.a>)}</div>
+      </motion.nav>}</AnimatePresence>
+    </header>
   );
 }
