@@ -1,21 +1,37 @@
 "use client";
-import { UiIcon } from "./ui-icon";
 
+import { useState, type ReactNode } from "react";
+import { getLenis } from "./smooth-scroll";
 
-import { PointerMask } from "./pointer-mask";
-import { useState } from "react";
-import { ArrowUpRight, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
 const email = "dev.malekbsaissa@gmail.com";
-export function Contact() {
-  const [copyState,setCopyState] = useState<"idle"|"copied"|"failed">("idle");
+
+export function Contact({ backdrop }: { backdrop?: ReactNode }) {
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
   async function copyEmail() {
-    try {await navigator.clipboard.writeText(email);setCopyState("copied");}
-    catch {setCopyState("failed");}
+    try { await navigator.clipboard.writeText(email); setCopyState("copied"); setTimeout(() => setCopyState("idle"), 2200); }
+    catch { setCopyState("failed"); }
   }
-  return <section id="contact" className="contact-section page-section" aria-labelledby="contact-title">
-    <div className="contact-top"><PointerMask id="contact-title">Get in touch</PointerMask><div className="contact-aside"><p>End-of-study internship opportunities<br />in cloud, DevOps, or software engineering.</p><a href={`mailto:${email}`} className="contact-action">Email me <ArrowUpRight size={42} weight="light" /></a></div></div>
-    <div className="contact-details"><div className="email-row"><a href={`mailto:${email}`}>{email}</a><button onClick={copyEmail}>{copyState === "copied" ? "Copied" : "Copy"}</button><span role="status" className={copyState === "failed" ? "copy-error" : "sr-only"}>{copyState === "copied" ? "Email address copied." : copyState === "failed" ? "Copy unavailable. Select the email or use the email link." : ""}</span></div>
-      <div className="social-links"><a href="https://github.com/AtfastrSlushyMaker" target="_blank" rel="noopener noreferrer"><GithubLogo size={20} />GitHub</a><a href="https://www.linkedin.com/in/malek-bsaissa-8861b229b/" target="_blank" rel="noopener noreferrer"><LinkedinLogo size={20} />LinkedIn</a><a href="/cv">Résumé <ArrowUpRight size={18} /></a></div></div>
-    <footer className="footer"><span>© {new Date().getFullYear()} Malek Bsaissa</span><a href="#hero-name">Back to top <UiIcon name="up" /></a><span>Tunisia</span></footer>
-  </section>;
+  const toTop = () => { const l = getLenis(); if (l) l.scrollTo(0); else window.scrollTo({ top: 0 }); };
+
+  return (
+    <section id="contact" className="contact" aria-labelledby="contact-title">
+      {backdrop}
+      <div className="page-section">
+        <p className="section-label" id="contact-title">Contact</p>
+        <p className="contact-intro" data-reveal>Open to end-of-study internships in cloud, DevOps or software engineering.</p>
+        <a href={`mailto:${email}`} className="contact-email" data-split>dev.malekbsaissa@<wbr />gmail.com</a>
+        <div className="contact-details" data-reveal>
+          <button onClick={copyEmail} className="text-button">{copyState === "copied" ? "Copied" : "Copy email"}</button>
+          <span role="status" className={copyState === "failed" ? "copy-error" : "sr-only"}>{copyState === "copied" ? "Email address copied." : copyState === "failed" ? "Copy unavailable. Select the email or use the email link." : ""}</span>
+          <a href="https://github.com/AtfastrSlushyMaker" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/malek-bsaissa-8861b229b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="/cv">Résumé</a>
+        </div>
+      </div>
+      <footer className="footer page-section">
+        <span>© {new Date().getFullYear()} Malek Bsaissa</span>
+        <button onClick={toTop} className="text-button">Back to top</button>
+      </footer>
+    </section>
+  );
 }

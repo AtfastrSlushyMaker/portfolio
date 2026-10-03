@@ -1,69 +1,100 @@
 "use client";
-import { UiIcon } from "./ui-icon";
 
-
-import Image from "next/image";
-import { TechIcon } from "./tech-icon";
-import { useState } from "react";
-import { LayoutGroup, motion } from "framer-motion";
-import { ArrowUpRight } from "@phosphor-icons/react";
-import { projects, type ProjectCategory } from "@/lib/projects";
-import { ProjectArchitecture } from "./project-architecture";
-import { usePortfolioMotion } from "./motion-provider";
-
-const filters = ["Everything", "Applications", "Cloud", "AI & data"] as const;
-type Filter = typeof filters[number];
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowDown, ArrowUp, ArrowUpRight } from "@phosphor-icons/react";
+import { moreProjects, projects } from "@/lib/projects";
+import { gsap, ScrollTrigger, useGSAP, prefersReducedMotion } from "@/lib/gsap";
+import { getLenis } from "./smooth-scroll";
+import { ProjectMark } from "./project-mark";
 
 export function Projects() {
-  const [filter, setFilter] = useState<Filter>("Everything");
-  const [selectedId, setSelectedId] = useState(projects[0].id);
-  const { enabled } = usePortfolioMotion();
-  const visible = projects.filter(p => filter === "Everything" || p.category === filter as ProjectCategory);
-  const selected = visible.find(p => p.id === selectedId) ?? visible[0];
+  const section = useRef<HTMLElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+  const more = useRef<HTMLElement>(null);
+  const pin = useRef<ScrollTrigger | null>(null);
+  // Which way the visitor is moving through the pinned row: the skip button jumps out in that direction.
+  const [direction, setDirection] = useState<"down" | "up">("down");
+
+  const skip = () => {
+    const lenis = getLenis();
+    if (direction === "up" && pin.current) {
+      const top = Math.max(0, pin.current.start - window.innerHeight);
+      if (lenis) lenis.scrollTo(top, { duration: 1.2 }); else window.scrollTo({ top });
+      return;
+    }
+    const target = more.current;
+    if (!target) return;
+    if (lenis) lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+    else target.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    target.focus({ preventScroll: true });
+  };
+
+  // Desktop: the section pins and the row of projects slides sideways with the scroll.
+  useGSAP(() => {
+    if (prefersReducedMotion()) return;
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 900px)", () => {
+      const el = track.current!;
+      const distance = () => el.scrollWidth - window.innerWidth;
+      const scroll = gsap.to(el, { x: () => -distance(), ease: "none",
+        scrollTrigger: { trigger: section.current, start: "top top", end: () => `+=${distance()}`, scrub: 0.8, pin: true, invalidateOnRefresh: true, anticipatePin: 1,
+          onUpdate: self => setDirection(self.direction === -1 ? "up" : "down") } });
+      pin.current = scroll.scrollTrigger ?? null;
+      gsap.fromTo(".work-progress-bar", { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { trigger: section.current, start: "top top", end: () => `+=${distance()}`, scrub: true } });
+      gsap.utils.toArray<HTMLElement>(".showcase-item").forEach(item => {
+        gsap.fromTo(item.querySelector(".project-mark"), { yPercent: 12, scale: 0.9 }, { yPercent: 0, scale: 1, ease: "power2.out",
+          scrollTrigger: { trigger: item, containerAnimation: scroll, start: "left 100%", end: "left 55%", scrub: true } });
+      });
+      ScrollTrigger.refresh();
+      return () => { pin.current = null; };
+    });
+    return () => mm.revert();
+  }, { scope: section });
+
   return (
-    <section id="work" className="work-section page-section" aria-labelledby="work-title">
-      <div className="work-heading">
-        <h2 id="work-title">Selected projects</h2>
-        <p>Applications, infrastructure,<br />and machine learning.</p>
-      </div>
-      <div className="project-filters" role="group" aria-label="Filter projects">
-        {filters.map(value => <button key={value} aria-pressed={filter === value} onClick={() => setFilter(value)}>
-          {value}<span>{value === "Everything" ? projects.length : projects.filter(p => p.category === value).length}</span>
-        </button>)}
-      </div>
-      <LayoutGroup id="project-browser"><div className="work-browser">
-        <div className="project-index" aria-label="Select a project">
-          {visible.map(project => <motion.button
-            layout={enabled ? "position" : false}
-            transition={{type:"spring", stiffness:330, damping:34}}
-            key={project.id}
-            aria-pressed={selected.id === project.id}
-            aria-controls="project-detail"
-            onClick={() => setSelectedId(project.id)}
-            className="project-choice"
-          >
-            {selected.id === project.id && <motion.span className="project-selection" layoutId={enabled ? "selected-project" : undefined} transition={{type:"spring",stiffness:300,damping:36}} aria-hidden="true" />}
-            <span className="project-number">{String(projects.indexOf(project) + 1).padStart(2,"0")}</span>
-            <span className="project-choice-title">{project.title}<span>{project.subtitle}</span></span>
-            <ArrowUpRight className="project-choice-arrow" size={24} weight="light" aria-hidden="true" />
-          </motion.button>)}
+    <>
+      <section ref={section} id="work" className="work" aria-labelledby="work-title">
+        <div ref={track} className="work-track">
+          <header className="work-intro">
+            <p className="section-label">Selected work <span>({projects.length})</span></p>
+            <h2 id="work-title" data-split>Projects</h2>
+            <p className="work-intro-copy">Applications, cloud infrastructure and machine learning, from school, internships and my own time. Each case study states my role.</p>
+          </header>
+          {projects.map((project, index) => (
+            <Link key={project.id} href={`/projects/${project.id}`} className="showcase-item">
+              <ProjectMark project={project} bare />
+              <div className="showcase-body">
+                <p className="showcase-meta"><span>{String(index + 1).padStart(2, "0")}</span><span>{project.category}</span><span>{project.year}</span></p>
+                <h3>{project.title}</h3>
+                <p className="showcase-subtitle">{project.subtitle}</p>
+                <span className="showcase-cta">Case study <ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
+              </div>
+            </Link>
+          ))}
+          <div className="work-end" aria-hidden="true" />
         </div>
-        <motion.article key={selected.id} initial={false} animate={{x: enabled ? [12,0] : 0}} transition={{duration:.45,ease:[.22,1,.36,1]}} id="project-detail" className="project-detail" aria-label={`${selected.title} project details`}>
-          <ProjectArchitecture id={selected.id} />
-          <div key={selected.id} className="project-copy" aria-live="polite">
-            <div className="project-meta"><span>{selected.role}</span><span>{selected.year}</span></div>
-            <h3>{selected.title}</h3>
-            <p className="project-description">{selected.description}</p>
-            <p className="project-detail-text">{selected.detail}</p>
-            <ul className="project-stack" aria-label="Technologies">{selected.stack.map(item => <li key={item}><TechIcon name={item} />{item}</li>)}</ul>
-            <div className="project-links">{selected.links.map(link => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={18} aria-hidden="true" /></a>)}</div>
-            {selected.id === "hybrid" && <div className="openstack-services" aria-label="OpenStack services">{[["Nova","Compute"],["Neutron","Networking"],["Keystone","Identity"],["Glance","VM images"],["Heat","Orchestration"],["Horizon","Dashboard"],["Octavia","Load balancing"],["Cinder","Block storage"],["Swift","Object storage"]].map(([name,role])=><figure key={name}><Image src={`/logos/openstack/${name.toLowerCase()}.png`} alt={`${name} logo`} width={180} height={90} /><figcaption><strong>{name}</strong><span>{role}</span></figcaption></figure>)}</div>}
-            {selected.sections?.map(section => <section className="project-deep-detail" key={section.title}><h4>{section.title}</h4><p>{section.text}</p></section>)}
-            {selected.note && <p className="project-note">{selected.note}</p>}
-          </div>
-        </motion.article>
-      </div></LayoutGroup>
-      <noscript><div className="static-projects">{projects.slice(1).map(project => <article key={project.id}><h3>{project.title}</h3><p>{project.description}</p><p>{project.detail}</p>{project.links.map(link => <a key={link.href} href={link.href}>{link.label} <UiIcon name="outward" /></a>)}</article>)}</div></noscript>
-    </section>
+        <div className="work-footer">
+          <div className="work-progress" aria-hidden="true"><span className="work-progress-bar" /></div>
+          <button type="button" className="work-skip" onClick={skip}>Skip projects {direction === "up" ? <ArrowUp size={16} weight="bold" aria-hidden="true" /> : <ArrowDown size={16} weight="bold" aria-hidden="true" />}</button>
+        </div>
+      </section>
+
+      <section ref={more} tabIndex={-1} className="more-projects page-section" aria-labelledby="more-title">
+        <p className="section-label" id="more-title">More projects</p>
+        <ul>
+          {moreProjects.map(project => (
+            <li key={project.href}>
+              <a href={project.href} target="_blank" rel="noopener noreferrer">
+                <strong>{project.title}</strong>
+                <span>{project.description}</span>
+                <span className="more-stack">{project.stack}</span>
+                <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   );
 }

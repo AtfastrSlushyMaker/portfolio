@@ -7,13 +7,30 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { PortfolioMotionProvider } from "@/components/motion-provider";
-import { BackToTop } from "@/components/back-to-top";
+import { SmoothScroll } from "@/components/smooth-scroll";
 
 const display = localFont({
-  src: "../../public/fonts/basteleur-moonlight.woff2",
+  src: [
+    { path: "../../public/fonts/clash-display-500.woff2", weight: "500" },
+    { path: "../../public/fonts/clash-display-600.woff2", weight: "600" },
+    { path: "../../public/fonts/clash-display-700.woff2", weight: "700" },
+  ],
   variable: "--font-display",
   display: "swap",
 });
+
+const sans = localFont({
+  src: [
+    { path: "../../public/fonts/satoshi-400.woff2", weight: "400" },
+    { path: "../../public/fonts/satoshi-500.woff2", weight: "500" },
+    { path: "../../public/fonts/satoshi-700.woff2", weight: "700" },
+  ],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+// Runs before first paint: applies the saved theme and holds the hero for its intro when motion is allowed.
+const bootScript = `try{if(localStorage.getItem("theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.dataset.intro="pending";`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://malekbsaissa.vercel.app"),
@@ -59,9 +76,10 @@ export default function RootLayout({
       lang="en"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${display.variable} dark h-full antialiased`}
+      className={`${display.variable} ${sans.variable} dark h-full antialiased`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=4" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=4" />
@@ -70,10 +88,11 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <PortfolioMotionProvider>
           <ThemeProvider>
+          <SmoothScroll>
           <a href="#main-content" className="skip-link">Skip to content</a>
           <Navbar />
           <main id="main-content" className="flex-1">{children}</main>
-          <BackToTop />
+          </SmoothScroll>
           </ThemeProvider>
         </PortfolioMotionProvider>
       <Analytics />

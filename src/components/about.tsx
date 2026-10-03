@@ -1,20 +1,25 @@
-import { SectionReveal } from "./section-reveal";
-const skills = [
-  {title:"Interfaces",items:"React, Angular, TypeScript, CesiumJS"},
-  {title:"Backend",items:"Spring Boot, Node.js, FastAPI, Laravel, Symfony"},
-  {title:"Infrastructure",items:"Kubernetes, OpenStack, Azure, Ansible, Terraform, Docker"},
-  {title:"AI & data",items:"Python, scikit-learn, LLM tools, PostgreSQL, MySQL"},
+const capabilities = [
+  { title: "Infrastructure", items: ["Kubernetes", "OpenStack", "Azure AKS", "Terraform", "Ansible", "Docker", "Prometheus & Grafana"] },
+  { title: "Backend", items: ["Spring Boot", "Node.js", "FastAPI", "Laravel", "Symfony"] },
+  { title: "Interfaces", items: ["React", "Angular", "TypeScript", "CesiumJS"] },
+  { title: "AI & data", items: ["Python", "scikit-learn", "LLM tool calling", "PostgreSQL", "MySQL"] },
 ];
+
 export function About() {
-  return <section id="about" className="about-section page-section" aria-labelledby="about-title">
-    <SectionReveal className="about-intro">
-      <h2 id="about-title">About me</h2>
-      <div className="about-copy">
-        <p>I’m a fifth-year, final-year engineering student at ESPRIT in Tunisia, specializing in Cloud Computing & DevOps (ARCTIC).</p>
-        <p>I’m looking for an end-of-study internship in cloud engineering, DevOps, or full-stack development.</p>
-        <p>My work includes OpenStack and Kubernetes infrastructure, web applications, real-time geospatial systems, and machine-learning services. The project descriptions identify my contribution within each team.</p>
+  return (
+    <section id="about" className="about page-section" aria-labelledby="about-title">
+      <p className="section-label" id="about-title">About</p>
+      <p className="about-statement" data-scrub-words>
+        I&rsquo;m in my fifth and final year at ESPRIT, specializing in Cloud Computing &amp; DevOps. Most of my work sits where infrastructure meets applications: Kubernetes on OpenStack, deployments to Azure, and the web platforms that run on them.
+      </p>
+      <div className="capabilities">
+        {capabilities.map(cap => (
+          <div key={cap.title} className="capability" data-reveal>
+            <h3>{cap.title}</h3>
+            <ul>{cap.items.map(item => <li key={item}>{item}</li>)}</ul>
+          </div>
+        ))}
       </div>
-    </SectionReveal>
-    <div className="skills-list">{skills.map(skill => <div key={skill.title}><h3>{skill.title}</h3><p>{skill.items}</p></div>)}</div>
-  </section>;
+    </section>
+  );
 }

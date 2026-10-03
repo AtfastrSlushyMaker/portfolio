@@ -115,98 +115,41 @@ function groupByYear(apiWeeks: ApiDay[][]): YearData[] {
     .sort((a, b) => a.year - b.year);
 }
 
-const CELL_SIZE = 12;
-const CELL_GAP = 3;
-const CELL_RADIUS = 2;
+const levelColor = (level: number) => level
+  ? `color-mix(in srgb, var(--color-accent-slate) ${20 + level * 20}%, var(--color-stone-surface))`
+  : "var(--color-stone-surface)";
 
+/**
+ * One year of contributions as a CSS grid that always fits its container: a column per week, square cells,
+ * and month labels placed on the exact week column where each month starts.
+ */
 function ContributionGrid({ yearData }: { yearData: YearData }) {
   const { weeks, monthLabels } = yearData;
-
-  const maxMonthIndex = monthLabels.length > 0
-    ? monthLabels[monthLabels.length - 1].index
-    : 0;
+  const columns = `2.2rem repeat(${weeks.length}, minmax(0, 1fr))`;
 
   return (
-    <div className="overflow-x-auto max-w-full pb-1">
-      <div>
-        <div className="flex" style={{ paddingLeft: 32, gap: CELL_GAP }}>
-          <div className="flex" style={{ gap: CELL_GAP }}>
-            {Array.from({ length: maxMonthIndex + 1 }, (_, wi) => {
-              const label = monthLabels.find((m) => m.index === wi);
-              return (
-                <div
-                  key={wi}
-                  className="text-[10px] text-muted font-mono"
-                  style={{ width: CELL_SIZE, textAlign: "left" }}
-                >
-                  {label?.label ?? ""}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="flex mt-1">
-          <div
-            className="flex flex-col shrink-0"
-            style={{ gap: CELL_GAP, width: 28, paddingRight: 4 }}
-          >
-            {DAY_LABELS.map((label, i) => (
-              <div
-                key={i}
-                className="text-[10px] text-muted font-mono flex items-center"
-                style={{ height: CELL_SIZE }}
-              >
-                {label}
-              </div>
-            ))}
-          </div>
-
-          <div className="flex" style={{ gap: CELL_GAP }}>
-            {weeks.map((week, wi) => (
-              <div
-                key={wi}
-                className="flex flex-col"
-                style={{ gap: CELL_GAP }}
-              >
-                {week.map((day, di) => (
-                  <div
-                    key={di}
-                    title={day.date ? `${day.date}: ${day.count} contributions` : ""}
-                    className="cursor-default"
-                    style={{
-                      width: CELL_SIZE,
-                      height: CELL_SIZE,
-                      borderRadius: CELL_RADIUS,
-                      backgroundColor: day.level
-                        ? `color-mix(in srgb, var(--color-accent-slate) ${20 + day.level * 20}%, var(--color-stone-surface))`
-                        : "var(--color-stone-surface)",
-                    }}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-1.5 mt-4 text-[10px] text-muted font-mono" style={{ paddingLeft: 32 }}>
-          <span>Less</span>
-          {[0, 1, 2, 3, 4].map((level) => (
-            <div
-              key={level}
-                style={{
-                  width: CELL_SIZE,
-                  height: CELL_SIZE,
-                  borderRadius: CELL_RADIUS,
-                  backgroundColor: level
-                    ? `color-mix(in srgb, var(--color-accent-slate) ${20 + level * 20}%, var(--color-stone-surface))`
-                    : "var(--color-stone-surface)",
-                }}
-            />
-          ))}
-          <span>More</span>
-        </div>
-        </div>
+    <div className="contrib">
+      <div className="contrib-grid" style={{ gridTemplateColumns: columns }}>
+        {monthLabels.map(m => (
+          <span key={m.label} className="contrib-month" style={{ gridColumn: m.index + 2, gridRow: 1 }}>{m.label}</span>
+        ))}
+        {DAY_LABELS.map((label, i) => (
+          <span key={i} className="contrib-day" style={{ gridColumn: 1, gridRow: i + 2 }}>{label}</span>
+        ))}
+        {weeks.map((week, wi) => week.map((day, di) => (
+          <span
+            key={day.date}
+            className="contrib-cell"
+            title={`${day.date}: ${day.count} contribution${day.count === 1 ? "" : "s"}`}
+            style={{ gridColumn: wi + 2, gridRow: di + 2, backgroundColor: levelColor(day.level) }}
+          />
+        )))}
+      </div>
+      <div className="contrib-legend" aria-hidden="true">
+        <span>Less</span>
+        {[0, 1, 2, 3, 4].map(level => <span key={level} className="contrib-cell" style={{ backgroundColor: levelColor(level) }} />)}
+        <span>More</span>
+      </div>
     </div>
   );
 }
