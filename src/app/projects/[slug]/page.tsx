@@ -38,7 +38,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             <h1 className="case-title" data-split>{project.title}</h1>
             <p className="case-subtitle" data-reveal>{project.subtitle}</p>
           </div>
-          <ProjectMark project={project} size="hero" priority />
+          <ProjectMark project={project} size="hero" priority bare />
         </div>
         <dl className="case-meta" data-reveal-stagger>
           <div><dt>Role</dt><dd>{project.role}</dd></div>

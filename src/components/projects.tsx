@@ -59,7 +59,7 @@ export function Projects() {
           <header className="work-intro">
             <p className="section-label">Selected work <span>({projects.length})</span></p>
             <h2 id="work-title" data-split>Projects</h2>
-            <p className="work-intro-copy">Applications, cloud infrastructure and machine learning, from school, internships and my own time. Each case study states my role.</p>
+            <p className="work-intro-copy">Applications, cloud infrastructure and machine learning, from school, internships and my own time. Each project page states my role.</p>
           </header>
           {projects.map((project, index) => (
             <Link key={project.id} href={`/projects/${project.id}`} className="showcase-item">
@@ -68,7 +68,7 @@ export function Projects() {
                 <p className="showcase-meta"><span>{String(index + 1).padStart(2, "0")}</span><span>{project.category}</span><span>{project.year}</span></p>
                 <h3>{project.title}</h3>
                 <p className="showcase-subtitle">{project.subtitle}</p>
-                <span className="showcase-cta">Case study <ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
+                <span className="showcase-cta">See details <ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
               </div>
             </Link>
           ))}
