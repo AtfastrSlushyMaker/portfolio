@@ -1,0 +1,102 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in,top=0.45in,bottom=0.4in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ebgaramond}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\large\bfseries\uppercase}{}{0pt}{}[\vspace{-6pt}\rule{\textwidth}{0.6pt}]
+\titlespacing*{\section}{0pt}{5pt}{3pt}
+
+\setlist[itemize]{label=\textbullet,leftmargin=1.4em,itemsep=0pt,topsep=1pt,parsep=0pt}
+
+% \entry{Org}{Dates}{Role}{Location}
+\newcommand{\entry}[4]{%
+  \textbf{#1}\hfill\textbf{#2}\\
+  #3\hfill #4\vspace{-1pt}}
+\newcommand{\gap}{\vspace{3pt}}
+
+\begin{document}
+{\fontsize{26}{28}\selectfont\bfseries Malek Bsaissa}\\[3pt]
+\href{mailto:dev.malekbsaissa@gmail.com}{dev.malekbsaissa@gmail.com} \,|\, +216 90 168 022 \,|\, Ariana, Tunisie \,|\,
+\href{https://malekbsaissa.vercel.app}{malekbsaissa.vercel.app} \,|\,
+\href{https://github.com/AtfastrSlushyMaker}{github.com/AtfastrSlushyMaker} \,|\,
+\href{https://www.linkedin.com/in/malek-bsaissa-8861b229b/}{LinkedIn}\\[2pt]
+\textit{Élève ingénieur en dernière année, spécialité Cloud Computing, à la recherche d'un stage de fin d'études (PFE) en tant qu'ingénieur Cloud \& DevOps (Cloud \& DevOps Engineer).}
+
+\section{Expérience professionnelle}
+
+\entry{Banque de Tunisie}{Juil. 2026 -- Août 2026}{Stagiaire ingénieur Full-Stack \& Cloud}{Tunisie}
+\begin{itemize}
+  \item Développement de MEMO, plateforme multi-tenant d'opérations internes (RH, IT, salles) avec Angular, Spring Boot et PostgreSQL : messagerie, audit et console d'administration
+  \item Conteneurisation Docker, CI/CD avec GitHub Actions, déploiement Terraform, supervision Prometheus/Grafana
+  \item Assistant IA FastAPI (réponses en streaming sourcées), autorisations contrôlées par le backend Spring
+\end{itemize}
+\gap
+
+\entry{Smart Skills}{Juin 2025 -- Août 2025}{Stagiaire développeur Full-Stack}{Ariana, Tunisie}
+\begin{itemize}
+  \item Développement de MySkills, plateforme de gestion de formations pour 4 rôles (administrateurs, coordinateurs, formateurs, apprenants) avec Laravel, React et MySQL
+  \item API REST, authentification Sanctum, contrôle d'accès par rôles, circuits de validation, certificats automatiques
+\end{itemize}
+\gap
+
+\entry{Tunisair}{Juin 2023}{Stagiaire opérations}{Aéroport Tunis-Carthage}
+\begin{itemize}
+  \item Participation à la billetterie, au traitement des remboursements et aux opérations quotidiennes
+\end{itemize}
+
+\section{Projets}
+
+\entry{Infrastructure Cloud hybride}{2026}{Projet académique en équipe -- OpenStack, Kubernetes, Ansible, Karmada, Azure}{}
+\begin{itemize}
+  \item Provisionnement OpenStack (Heat) et Kubernetes (kubeadm, Ansible) automatisés ; fédération avec un cluster Azure via Karmada
+  \item 6 politiques de propagation ; 4 réplicas répartis sur 2 clusters, supervisés avec Prometheus/Grafana
+\end{itemize}
+\gap
+
+\entry{Boundless -- AI Game Master}{2026}{Projet personnel -- Next.js, FastAPI, PostgreSQL + pgvector, Docker Compose}{}
+\begin{itemize}
+  \item RPG textuel piloté par IA : le LLM propose les changements d'état, le backend les valide et les enregistre de façon transactionnelle
+  \item Mémoire long terme (recherche hybride pgvector), timelines à branches, fournisseurs LLM interchangeables (MLX, Ollama, DeepSeek)
+\end{itemize}
+\gap
+
+\entry{AtlasMesh}{2026}{Projet personnel -- React, CesiumJS, Node.js, TypeScript, WebSocket}{}
+\begin{itemize}
+  \item 18 sources de données en direct sur un globe 3D : temps réel, orbites satellites, recherche d'entités, couches cartographiques
+\end{itemize}
+\gap
+
+\entry{Elif \& Elif AI Agent}{2025 -- 2026}{Projet en équipe -- Angular, Spring Boot, MySQL, WebSocket, FastAPI}{}
+\begin{itemize}
+  \item Module communauté (discussions, votes, modération, chat temps réel) et agent FastAPI/Groq de recherche en langage naturel
+\end{itemize}
+\gap
+
+\entry{The 12th Player \textmd{\& WamiaGo}}{2024 -- 2026}{Projets en équipe -- Python, scikit-learn, FastAPI, React / JavaFX, Symfony, MySQL}{}
+\begin{itemize}
+  \item Modèles ML football (KNN, Random Forest, KMeans, LightGBM) ; location de vélos électriques avec déverrouillage QR (desktop et web)
+\end{itemize}
+
+\section{Formation}
+
+\entry{ESPRIT -- École Supérieure Privée d'Ingénierie et de Technologies}{2022 -- 2027 (prévu)}{Diplôme national d'ingénieur (Bac+5) en informatique, spécialité Cloud Computing}{Ariana, Tunisie}
+
+\section{Autres}
+\begin{itemize}
+  \item \textbf{Certifications} : Aviatrix Certified Engineer (ACE) -- Multicloud Network Associate (2025) ; Hedera Certified Foundation (HCF) \& Hedera Certified Developer Associate (HCDA) -- blockchain
+  \item \textbf{Badges} : AWS Academy Cloud Operations
+  \item \textbf{Cloud \& DevOps} : AWS, OpenStack, Kubernetes, Docker, Terraform, Ansible, GitHub Actions, Linux, Prometheus, Grafana
+  \item \textbf{Développement} : Java (Spring Boot), Python (FastAPI), TypeScript (Angular, React, Next.js, Node.js), PHP (Laravel, Symfony)
+  \item \textbf{Données \& IA} : PostgreSQL, pgvector, MySQL, Redis, scikit-learn, intégration de LLM (RAG, tool calling, Ollama, MLX)
+  \item \textbf{Centres d'intérêt} : projets personnels par passion -- jeux IA (Boundless), cartes 3D en direct (AtlasMesh), home lab
+  \item \textbf{Langues} : arabe (natif), anglais (avancé), français (notions)
+\end{itemize}
+
+\end{document}

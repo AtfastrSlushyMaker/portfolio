@@ -1,0 +1,102 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=0.5in,top=0.45in,bottom=0.4in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{ebgaramond}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\large\bfseries\uppercase}{}{0pt}{}[\vspace{-6pt}\rule{\textwidth}{0.6pt}]
+\titlespacing*{\section}{0pt}{5pt}{3pt}
+
+\setlist[itemize]{label=\textbullet,leftmargin=1.4em,itemsep=0pt,topsep=1pt,parsep=0pt}
+
+% \entry{Org}{Dates}{Role}{Location}
+\newcommand{\entry}[4]{%
+  \textbf{#1}\hfill\textbf{#2}\\
+  #3\hfill #4\vspace{-1pt}}
+\newcommand{\gap}{\vspace{3pt}}
+
+\begin{document}
+
+{\fontsize{26}{28}\selectfont\bfseries Malek Bsaissa}\\[3pt]
+\href{mailto:dev.malekbsaissa@gmail.com}{dev.malekbsaissa@gmail.com} \,|\, +216 90 168 022 \,|\, Ariana, Tunisia \,|\,
+\href{https://malekbsaissa.vercel.app}{malekbsaissa.vercel.app} \,|\,
+\href{https://github.com/AtfastrSlushyMaker}{github.com/AtfastrSlushyMaker} \,|\,
+\href{https://www.linkedin.com/in/malek-bsaissa-8861b229b/}{LinkedIn}\\[2pt]
+\textit{Final-year Cloud Computing engineering student seeking an end-of-study (PFE) internship as a Cloud \& DevOps Engineer.}
+
+\section{Professional Experience}
+
+\entry{Banque de Tunisie}{Jul 2026 -- Aug 2026}{Full-Stack \& Cloud Engineering Intern}{Tunisia}
+\begin{itemize}
+  \item Built MEMO, a multi-tenant workplace operations platform (HR, IT, rooms, facilities) with Angular, Spring Boot and PostgreSQL, including messaging, audit trails and a platform administration console
+  \item Containerized services with Docker, built CI/CD with GitHub Actions and Terraform deployment, added Prometheus/Grafana monitoring
+  \item Integrated a FastAPI AI assistant with streamed, source-grounded answers, with authorization enforced by the Spring backend
+\end{itemize}
+\gap
+
+\entry{Smart Skills}{Jun 2025 -- Aug 2025}{Full-Stack Developer Intern}{Ariana, Tunisia}
+\begin{itemize}
+  \item Built MySkills, a training management platform serving 4 user roles (administrators, coordinators, trainers, trainees) with Laravel, React and MySQL
+  \item Implemented REST APIs, Sanctum auth, role-based access control, approval workflows and automated certificates
+\end{itemize}
+\gap
+
+\entry{Tunisair}{Jun 2023}{Operations Intern}{Tunis-Carthage Airport}
+\begin{itemize}
+  \item Supported ticketing, refund processing and daily airport operations
+\end{itemize}
+
+\section{Projects}
+
+\entry{Hybrid Cloud Infrastructure}{2026}{Academic team project -- OpenStack, Kubernetes, Ansible, Karmada, Azure}{}
+\begin{itemize}
+  \item Automated OpenStack provisioning (Heat) and Kubernetes cluster setup (kubeadm, Ansible); federated the private cloud with a public Azure cluster through Karmada
+  \item Configured 6 propagation policies; ran 4 replicas split across 2 clusters, monitored with Prometheus/Grafana
+\end{itemize}
+\gap
+
+\entry{Boundless -- AI Game Master}{2026}{Personal project -- Next.js, FastAPI, PostgreSQL + pgvector, Docker Compose}{}
+\begin{itemize}
+  \item Built a local-first AI text RPG whose streaming turn pipeline lets the LLM only propose state changes; the backend validates, reconciles and commits them transactionally
+  \item Long-term memory via pgvector hybrid retrieval, branching timelines, pluggable LLM providers (MLX, Ollama, DeepSeek)
+\end{itemize}
+\gap
+
+\entry{AtlasMesh}{2026}{Personal project -- React, CesiumJS, Node.js, TypeScript, WebSocket}{}
+\begin{itemize}
+  \item Combined 18 live data sources on a 3D globe with real-time updates, satellite orbit propagation, entity search and toggleable map layers
+\end{itemize}
+\gap
+
+\entry{Elif \& Elif AI Agent}{2025 -- 2026}{Team project -- Angular, Spring Boot, MySQL, WebSocket, FastAPI}{}
+\begin{itemize}
+  \item Built community module (discussions, moderation, real-time chat) and a FastAPI/Groq natural-language search agent
+\end{itemize}
+\gap
+
+\entry{The 12th Player \textmd{\& WamiaGo}}{2024 -- 2026}{Team projects -- Python, scikit-learn, FastAPI, React / JavaFX, Symfony, MySQL}{}
+\begin{itemize}
+  \item Football analytics ML models (KNN, Random Forest, KMeans, LightGBM); electric-bicycle rental module with QR-code unlocking across desktop and web apps
+\end{itemize}
+
+\section{Education}
+
+\entry{ESPRIT School of Engineering}{2022 -- 2027 (expected)}{Engineering Degree (Master's level) in Computer Science, Cloud Computing specialization}{Ariana, Tunisia}
+
+\section{Other}
+\begin{itemize}
+  \item \textbf{Certifications}: Aviatrix Certified Engineer (ACE) -- Multicloud Network Associate (2025); Hedera Certified Foundation (HCF) \& Hedera Certified Developer Associate (HCDA) -- blockchain
+  \item \textbf{Badges}: AWS Academy Cloud Operations
+  \item \textbf{Cloud \& DevOps}: AWS, OpenStack, Kubernetes, Docker, Terraform, Ansible, GitHub Actions, Linux, Prometheus, Grafana
+  \item \textbf{Development}: Java (Spring Boot), Python (FastAPI), TypeScript (Angular, React, Next.js, Node.js), PHP (Laravel, Symfony)
+  \item \textbf{Data \& AI}: PostgreSQL, pgvector, MySQL, Redis, scikit-learn, LLM integration (RAG, tool calling, Ollama, MLX)
+  \item \textbf{Interests}: Building fun side projects -- AI games (Boundless), live 3D maps (AtlasMesh), self-hosted home lab
+  \item \textbf{Languages}: Arabic (native), English (advanced), French (basic)
+\end{itemize}
+
+\end{document}
