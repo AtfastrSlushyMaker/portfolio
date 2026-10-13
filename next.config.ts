@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     return [{
       source: "/:path*",
       has: [{ type: "host", value: "malekbsaissa.vercel.app" }],
-      destination: "https://malekbsaissa.dev/:path*",
+      destination: "https://www.malekbsaissa.dev/:path*",
       permanent: true,
     }];
   },

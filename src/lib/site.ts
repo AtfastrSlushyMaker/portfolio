@@ -1,5 +1,5 @@
 /** Canonical address of the site; every absolute URL (metadata, sitemap, structured data) derives from it. */
-export const SITE_URL = "https://malekbsaissa.dev";
+export const SITE_URL = "https://www.malekbsaissa.dev";
 
 export const PROFILE = {
   name: "Malek Bsaissa",
