@@ -1,22 +1,23 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 import { projects } from "@/lib/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://malekbsaissa.vercel.app",
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: "https://malekbsaissa.vercel.app/cv",
+      url: `${SITE_URL}/cv`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     ...projects.map(project => ({
-      url: `https://malekbsaissa.vercel.app/projects/${project.id}`,
+      url: `${SITE_URL}/projects/${project.id}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,

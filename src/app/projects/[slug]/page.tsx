@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   const { slug } = await params;
   const project = projects.find(p => p.id === slug);
   if (!project) return {};
-  return { title: project.title, description: project.description };
+  return { title: project.title, description: project.description, alternates: { canonical: `/projects/${slug}` } };
 }
 
 export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) {

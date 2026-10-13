@@ -4,6 +4,14 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  async redirects() {
+    return [{
+      source: "/:path*",
+      has: [{ type: "host", value: "malekbsaissa.vercel.app" }],
+      destination: "https://malekbsaissa.dev/:path*",
+      permanent: true,
+    }];
+  },
   images: {
     // 90 for full-bleed photography and screenshots, 75 (the default) for everything else.
     qualities: [75, 90],

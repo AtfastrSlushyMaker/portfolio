@@ -1,6 +1,6 @@
 # Malek Bsaissa | Portfolio
 
-My personal portfolio: projects, experience and contact. Live at [malekbsaissa.vercel.app](https://malekbsaissa.vercel.app).
+My personal portfolio: projects, experience and contact. Live at [malekbsaissa.dev](https://malekbsaissa.dev).
 
 Built with Next.js 16, React 19, TypeScript and Tailwind CSS v4, with GSAP, Lenis and a small WebGL shader for the hero timelapse.
 

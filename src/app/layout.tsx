@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { PortfolioMotionProvider } from "@/components/motion-provider";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { PROFILE, SITE_URL } from "@/lib/site";
 
 const display = localFont({
   src: [
@@ -30,10 +31,22 @@ const sans = localFont({
 });
 
 // Runs before first paint: applies the saved theme and holds the hero for its intro when motion is allowed.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: PROFILE.name,
+  url: SITE_URL,
+  jobTitle: "Software & cloud engineering student",
+  alumniOf: { "@type": "CollegeOrUniversity", name: "ESPRIT School of Engineering" },
+  address: { "@type": "PostalAddress", addressLocality: "Ariana", addressCountry: "TN" },
+  sameAs: [PROFILE.github, PROFILE.linkedin],
+};
+
 const bootScript = `try{if(localStorage.getItem("theme")==="light")document.documentElement.classList.remove("dark")}catch(e){}if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.dataset.intro="pending";`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://malekbsaissa.vercel.app"),
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   title: {
     default: "Malek Bsaissa | Software Engineer",
     template: "%s | Malek Bsaissa",
@@ -52,7 +65,7 @@ export const metadata: Metadata = {
     title: "Malek Bsaissa",
     description:
       "Malek Bsaissa, final-year software and cloud engineering student in Tunisia seeking an end-of-study internship. Explore projects in geospatial systems, community platforms, machine learning, and hybrid cloud.",
-    url: "https://malekbsaissa.vercel.app",
+    url: SITE_URL,
     siteName: "Malek Bsaissa",
     images: [{ url: "/og", width: 1200, height: 630 }],
     type: "website",
@@ -86,6 +99,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png?v=4" />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
         <PortfolioMotionProvider>
           <ThemeProvider>
           <SmoothScroll>
